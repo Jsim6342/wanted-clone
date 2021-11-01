@@ -38,4 +38,6 @@ default 브랜치를 dev 브랜치로 설정
 
 ### 라벨 정의
 
-![라벨 정의](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/37b645fc-da9e-432a-8f55-0e07401ccfb1/Untitled.png)
+![image](https://user-images.githubusercontent.com/70616657/139655004-86786c4d-8f00-4d34-be18-fa85ba1d9d44.png)
+
+
