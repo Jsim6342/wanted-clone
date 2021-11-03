@@ -41,5 +41,8 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
-### 단일 파일 ###
+### yml 설정파일 ###
 mysql.yml
+
+### class 파일 ###
+src/main/java/com/example/demo/config/secret/Secret.class
