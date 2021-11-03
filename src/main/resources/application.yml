@@ -4,11 +4,3 @@ server:
 spring:
   application:
     name: demo
-
-  datasource:
-    platform: mysql
-    url: jdbc:mysql://jminie-db.cun9lzq29m3l.ap-northeast-2.rds.amazonaws.com/Wanted?autoReconnect=true&verifyServerCertificate=false&useSSL=false
-    username:  master
-    password:  wjdgusdn6295
-    driver-class-name: com.mysql.jdbc.Driver # mysql 5버전
-    #driver-class-name: com.mysql.cj.jdbc.Driver # mysql 8버전
