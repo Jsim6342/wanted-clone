@@ -38,11 +38,11 @@
 
 ### 라벨 정의
 
-Done: 개발완료
-Doing: 개발중
-Fast Review: 빠른 리뷰 요청
-In Review: 리뷰중
-Merge Needed: 머지 가능
-Review Needed: 리뷰 필요
-To Do: 개발 예정
+Done: 개발완료  
+Doing: 개발중  
+Fast Review: 빠른 리뷰 요청  
+In Review: 리뷰중  
+Merge Needed: 머지 가능  
+Review Needed: 리뷰 필요  
+To Do: 개발 예정  
 
