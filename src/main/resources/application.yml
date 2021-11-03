@@ -10,5 +10,5 @@ spring:
     url: jdbc:mysql://forclass.c8ydsrovkrwj.ap-northeast-2.rds.amazonaws.com/test?autoReconnect=true # 변경해주세요
     username:  # 변경해주세요
     password:  # 변경해주세요
-    driver-class-name: com.mysql.cj.jdbc.Driver # mysql 8버전
-    # driver-class-name: com.mysql.jdbc.Driver # mysql 5버전
+    driver-class-name: com.mysql.jdbc.Driver # mysql 5버전
+    #driver-class-name: com.mysql.cj.jdbc.Driver # mysql 8버전

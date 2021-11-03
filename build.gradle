@@ -24,6 +24,7 @@ repositories {
 
 dependencies {
     implementation 'org.jetbrains:annotations:19.0.0'
+    implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.2'
 
 
     // Spring Boot Starter
@@ -35,12 +36,13 @@ dependencies {
     annotationProcessor ('org.projectlombok:lombok:1.18.16')
 
     // DB
-    runtimeOnly ('mysql:mysql-connector-java') //mysql8
-    //runtimeOnly 'mysql:mysql-connector-java:5.1.47' //mysql5
+    //runtimeOnly ('mysql:mysql-connector-java') //mysql8
+    runtimeOnly 'mysql:mysql-connector-java:5.1.47' //mysql5
     implementation ('org.springframework.boot:spring-boot-starter-jdbc')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa') //mysql 5버전의 경우 삭제.
+    // compile('org.springframework.boot:spring-boot-starter-data-jpa') //mysql 5버전의 경우 삭제.
 
-
+    //validation
+    implementation ('org.springframework.boot:spring-boot-starter-validation')
 
     // Web
     implementation ('org.springframework.boot:spring-boot-starter-web')
