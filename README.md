@@ -26,18 +26,17 @@
 
 ### 브랜칭 모델
 
-default 브랜치를 dev 브랜치로 설정
-
-기본적으로는 dev 브랜치에서 체크아웃 작업
+이슈 별로 브랜치를 분기하여 작업.
 
 작업 중, 에러 발생 및 기존 작업을 베이스로한 추가 작업이 필요할 경우, 해당 이슈 브랜치에서 추가 브랜치 생성 후 작업
 
-최종 배포 버전만 dev 브랜치에서 master 브랜치에 적용
+배포가 가능한 단계까지는 main에 PR 작업.
+
+배포 이후, dev 브랜치를 새로 분기하여 작업.
 
 
 
 ### 라벨 정의
 
-![image](https://user-images.githubusercontent.com/70616657/139655004-86786c4d-8f00-4d34-be18-fa85ba1d9d44.png)
-
+![image-20211103225800350](C:\Users\SooBeom\AppData\Roaming\Typora\typora-user-images\image-20211103225800350.png)
 
