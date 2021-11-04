@@ -23,4 +23,11 @@ public class Employment {
     private String created;
     private String updated;
     private String status;
+
+    public Employment(String empTitle, Long recReward, Long volReward, String empDeadline) {
+        this.empTitle = empTitle;
+        this.recReward = recReward;
+        this.volReward = volReward;
+        this.empDeadline = empDeadline;
+    }
 }

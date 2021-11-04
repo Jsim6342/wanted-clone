@@ -60,6 +60,7 @@ public class UserProvider {
         }
     }
 
+
     public PostLoginRes logIn(PostLoginReq postLoginReq) throws BaseException{
         User user = userDao.getUserInfo(postLoginReq);
         String password;

@@ -1,11 +1,10 @@
 package com.example.demo.src.company;
 
 import com.example.demo.config.response.BaseResponse;
+import com.example.demo.src.company.model.GetCompanyRes;
 import com.example.demo.src.company.model.PostCompanyReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/app/companies")
@@ -13,6 +12,7 @@ import java.util.List;
 public class CompanyController {
 
     private final CompanyService companyService;
+    private final CompanyProvider companyProvider;
 
     /**
      * 기업 등록 API
@@ -30,8 +30,14 @@ public class CompanyController {
     /**
      * 기업 상세 조회 API
      * [GET] /app/companies/{companyId}
-     * @return BaseResponse<>
+     * @return BaseResponse<GetCompanyRes>
      */
+    @GetMapping("/{companyId}")
+    public BaseResponse<GetCompanyRes> getCompany(@PathVariable Long companyId) {
+        GetCompanyRes result = companyProvider.getCompany(companyId);
+        return new BaseResponse<>(result);
+    }
+
 
     /**
      * 기업 정보 수정 API
