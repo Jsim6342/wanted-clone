@@ -37,35 +37,28 @@ public class UserProvider {
             return getUserRes;
         }
         catch (Exception exception) {
+            System.out.println(exception);
             throw new BaseException(DATABASE_ERROR);
         }
     }
 
-    public List<GetUserRes> getUsersByEmail(String email) throws BaseException{
+    public GetUserRes getUsersByEmail(String email) throws BaseException{
         try{
-            List<GetUserRes> getUsersRes = userDao.getUsersByEmail(email);
+            GetUserRes getUsersRes = userDao.getUsersByEmail(email);
             return getUsersRes;
         }
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
-                    }
-
-
-    public GetUserRes getUser(int userIdx) throws BaseException {
-        try {
-            GetUserRes getUserRes = userDao.getUser(userIdx);
-            return getUserRes;
-        } catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
     }
+
+
+
 
     public int checkEmail(String email) throws BaseException{
         try{
             return userDao.checkEmail(email);
         } catch (Exception exception){
-            System.out.println("error" + exception.getMessage());
             throw new BaseException(DATABASE_ERROR);
         }
     }
