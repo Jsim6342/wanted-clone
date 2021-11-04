@@ -10,8 +10,9 @@ public class CompanyProvider {
 
     private final CompanyDao companyDao;
 
-//    public GetCompanyRes getCompany(int companyId) {
-//
-//        GetCompanyRes getCompanyRes = companyDao.getCompany(companyId);
-//    }
+    public GetCompanyRes getCompany(Long companyId) {
+
+        GetCompanyRes getCompanyRes = companyDao.getCompany(companyId);
+        return getCompanyRes;
+    }
 }

@@ -1,7 +1,10 @@
 package com.example.demo.src.company;
 
+import com.example.demo.src.company.model.Company;
+import com.example.demo.src.company.model.CompanyImg;
 import com.example.demo.src.company.model.GetCompanyRes;
 import com.example.demo.src.company.model.PostCompanyReq;
+import com.example.demo.src.employment.model.Employment;
 import com.example.demo.src.user.model.GetUserRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Repository
 public class CompanyDao {
@@ -41,17 +45,58 @@ public class CompanyDao {
         this.jdbcTemplate.update(sql, params);
     }
 
-//    public GetCompanyRes getCompany(int companyId) {
-//        String getUsersByEmailQuery = "select * from UserInfo where email =?";
-//        String getUsersByEmailParams = email;
-//        return this.jdbcTemplate.query(getUsersByEmailQuery,
-//                (rs, rowNum) -> new GetCompanyRes(
-//                        rs.getString("company_name"),
-//                        rs.getString("userName"),
-//                        rs.getString("ID"),
-//                        rs.getString("Email"),
-//                        rs.getString("password")),
-//                getUsersByEmailParams);
-//
-//    }
+    public GetCompanyRes getCompany(Long companyId) {
+        // 회사 채용정보 SELECT
+        String employmentSql = "select emp_title, rec_reward, vol_reward, emp_deadline from Employment where company_idx = ?";
+        Long employmentParams = companyId;
+        List<Employment> employmentList = this.jdbcTemplate.query(employmentSql,
+                (rs, rowNum) -> new Employment(
+                        rs.getString("emp_title"),
+                        rs.getLong("rec_reward"),
+                        rs.getLong("vol_reward"),
+                        rs.getString("emp_deadline")),
+                employmentParams);
+
+        // 회사 태그 SELECT
+        StringBuffer br = new StringBuffer();
+        br.append("SELECT k.keyword_name FROM Com_Key_Map c ");
+        br.append("INNER JOIN Keyword k ON c.keyword_num = k.keyword_num ");
+        br.append("WHERE c.company_idx = ?");
+        String tagSql = br.toString();
+        Long tagParams = companyId;
+        List<String> keywordList = this.jdbcTemplate.query(tagSql,
+                (rs, rowNum) -> new String(
+                        rs.getString("keyword_name")),
+                tagParams);
+
+        // 회사 이미지 SELECT
+        String imageSql = "select company_img_1, company_img_2, company_img_3, company_img_4, company_img_5 from Company_Img where company_idx = ?";
+        Long imageParams = companyId;
+        CompanyImg companyImg = this.jdbcTemplate.queryForObject(imageSql,
+                (rs, rowNum) -> new CompanyImg(
+                        rs.getString("company_img_1"),
+                        rs.getString("company_img_2"),
+                        rs.getString("company_img_3"),
+                        rs.getString("company_img_4"),
+                        rs.getString("company_img_5")),
+                imageParams);
+
+        // 회사 정보 SELECT
+        String companySql = "select company_name, company_introduce from Company where company_idx = ?";
+        Long companyParams = companyId;
+        Company company = this.jdbcTemplate.queryForObject(companySql,
+                (rs, rowNum) -> new Company(
+                        rs.getString("company_name"),
+                        rs.getString("company_introduce")),
+                companyParams);
+
+        GetCompanyRes getCompanyRes = new GetCompanyRes();
+        getCompanyRes.setCompanyName(company.getCompanyName());
+        getCompanyRes.setCompanyIntroduce(company.getIntroduce());
+        getCompanyRes.setEmploymentList(employmentList);
+        getCompanyRes.setImageUrls(companyImg);
+        getCompanyRes.setTags(keywordList);
+
+        return getCompanyRes;
+    }
 }

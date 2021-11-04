@@ -1,6 +1,7 @@
 package com.example.demo.src.company;
 
 import com.example.demo.config.response.BaseResponse;
+import com.example.demo.src.company.model.GetCompanyRes;
 import com.example.demo.src.company.model.PostCompanyReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +32,11 @@ public class CompanyController {
      * [GET] /app/companies/{companyId}
      * @return BaseResponse<GetCompanyRes>
      */
-//    @GetMapping("/{companyId}")
-//    public BaseResponse<GetCompanyRes> getCompany(@PathVariable int companyId) {
-//        GetCompanyRes result = companyProvider.getCompany(companyId);
-//
-//
-//    }
+    @GetMapping("/{companyId}")
+    public BaseResponse<GetCompanyRes> getCompany(@PathVariable Long companyId) {
+        GetCompanyRes result = companyProvider.getCompany(companyId);
+        return new BaseResponse<>(result);
+    }
 
 
     /**
