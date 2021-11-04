@@ -1,6 +1,8 @@
 package com.example.demo.src.company;
 
+import com.example.demo.src.company.model.GetCompanyRes;
 import com.example.demo.src.company.model.PostCompanyReq;
+import com.example.demo.src.user.model.GetUserRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,4 +40,18 @@ public class CompanyDao {
         };
         this.jdbcTemplate.update(sql, params);
     }
+
+//    public GetCompanyRes getCompany(int companyId) {
+//        String getUsersByEmailQuery = "select * from UserInfo where email =?";
+//        String getUsersByEmailParams = email;
+//        return this.jdbcTemplate.query(getUsersByEmailQuery,
+//                (rs, rowNum) -> new GetCompanyRes(
+//                        rs.getString("company_name"),
+//                        rs.getString("userName"),
+//                        rs.getString("ID"),
+//                        rs.getString("Email"),
+//                        rs.getString("password")),
+//                getUsersByEmailParams);
+//
+//    }
 }
