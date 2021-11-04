@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.config.response;
 
 import lombok.Getter;
 
@@ -54,10 +54,14 @@ public enum BaseResponseStatus {
     MODIFY_FAIL_USERNAME(false,4014,"유저네임 수정 실패"),
 
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
-    PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다.");
+    PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다."),
 
 
-    // 5000 : 필요시 만들어서 쓰세요
+    /**
+     * 5000 : Advisor에 등록되지 않은 오류
+     */
+    NOT_REGISTRATION_ERROR(false, 5000, "등록되지 않은 에러입니다. 서버 측에 전달해주세요.");
+
     // 6000 : 필요시 만들어서 쓰세요
 
 
