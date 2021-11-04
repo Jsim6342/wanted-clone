@@ -83,6 +83,25 @@ public class UserController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    /**
+     * 이메일로 회원 조회 API
+     * [GET] /users/:userNickname
+     * @return BaseResponse<GetUserRes>
+     */
+    @ResponseBody
+    @GetMapping("/userEmail/{userEmail}")
+    public BaseResponse<GetUserRes> getUserByEmail(@PathVariable("userEmail") String email){
+        try{
+            GetUserRes getUsersRes = userProvider.getUsersByEmail(email);
+            return new BaseResponse<>(getUsersRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+
+
     /**
      * 로그인 API
      * [POST] /users/logIn
