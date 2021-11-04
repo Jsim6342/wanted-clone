@@ -37,47 +37,23 @@ public class UserController {
     }
 
     /**
-     * 회원 조회 API
+     * 회원 전체 정보 조회 API
      * [GET] /users
-     * 회원 번호 및 이메일 검색 조회 API
-     * [GET] /users? Email=
      * @return BaseResponse<List<GetUserRes>>
      */
     //Query String
     @ResponseBody
-    @GetMapping("") // (GET) 127.0.0.1:9000/app/users
-    public BaseResponse<List<GetUserRes>> getUsers(@RequestParam(required = false) String Email) {
+    @GetMapping("")
+    public BaseResponse<List<GetUserRes>> getUsers(){
         try{
-            if(Email == null){
-                List<GetUserRes> getUsersRes = userProvider.getUsers();
-                return new BaseResponse<>(getUsersRes);
-            }
-            // Get Users
-            List<GetUserRes> getUsersRes = userProvider.getUsersByEmail(Email);
+            List<GetUserRes> getUsersRes = userProvider.getUsers();
             return new BaseResponse<>(getUsersRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
     }
 
-    /**
-     * 회원 1명 조회 API
-     * [GET] /users/:userIdx
-     * @return BaseResponse<GetUserRes>
-     */
-    // Path-variable
-    @ResponseBody
-    @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
-    public BaseResponse<GetUserRes> getUser(@PathVariable("userIdx") int userIdx) {
-        // Get Users
-        try{
-            GetUserRes getUserRes = userProvider.getUser(userIdx);
-            return new BaseResponse<>(getUserRes);
-        } catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
-        }
 
-    }
 
     /**
      * 회원가입 API
@@ -107,6 +83,25 @@ public class UserController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    /**
+     * 이메일로 회원 조회 API
+     * [GET] /users/:userNickname
+     * @return BaseResponse<GetUserRes>
+     */
+    @ResponseBody
+    @GetMapping("/userEmail/{userEmail}")
+    public BaseResponse<GetUserRes> getUserByEmail(@PathVariable("userEmail") String email){
+        try{
+            GetUserRes getUsersRes = userProvider.getUsersByEmail(email);
+            return new BaseResponse<>(getUsersRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+
+
     /**
      * 로그인 API
      * [POST] /users/logIn
@@ -115,9 +110,15 @@ public class UserController {
     @ResponseBody
     @PostMapping("/logIn")
     public BaseResponse<PostLoginRes> logIn(@RequestBody PostLoginReq postLoginReq){
+        // 이메일 입력 안했을 때 validation
+        if(postLoginReq.getUserEmail().equals("")){
+            return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
+        }
+        // 비밀번호 입력 안했을 때 validation
+        if(postLoginReq.getUserPassword().equals("")){
+            return new BaseResponse<>(POST_USERS_EMPTY_PASSWORD);
+        }
         try{
-            // TODO: 로그인 값들에 대한 형식적인 validatin 처리해주셔야합니다!
-            // TODO: 유저의 status ex) 비활성화된 유저, 탈퇴한 유저 등을 관리해주고 있다면 해당 부분에 대한 validation 처리도 해주셔야합니다.
             PostLoginRes postLoginRes = userProvider.logIn(postLoginReq);
             return new BaseResponse<>(postLoginRes);
         } catch (BaseException exception){
