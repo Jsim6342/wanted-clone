@@ -1,20 +1,31 @@
 package com.example.demo.src.company;
 
 import com.example.demo.config.response.BaseResponse;
-import com.example.demo.src.user.model.GetUserRes;
+import com.example.demo.src.company.model.PostCompanyReq;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/app/companies")
+@RequiredArgsConstructor
 public class CompanyController {
+
+    private final CompanyService companyService;
 
     /**
      * 기업 등록 API
      * [POST] /app/companies
-     * @return BaseResponse<>
+     * @return BaseResponse<String>
      */
+    @PostMapping("")
+    public BaseResponse<String> createCompany(@RequestBody PostCompanyReq postCompanyReq) {
+
+        companyService.createCompany(postCompanyReq);
+        String result = "";
+        return new BaseResponse<>(result);
+    }
 
     /**
      * 기업 상세 조회 API
