@@ -58,13 +58,13 @@ public class UserDao {
     }
     
 
-    public int createUser(PostUserReq postUserReq){
-        String createUserQuery = "insert into UserInfo (userName, ID, password, email) VALUES (?,?,?,?)";
-        Object[] createUserParams = new Object[]{postUserReq.getUserName(), postUserReq.getId(), postUserReq.getPassword(), postUserReq.getEmail()};
+    public Long createUser(PostUserReq postUserReq){
+        String createUserQuery = "insert into User (user_email, user_name, user_password, user_phone_number) VALUES (?,?,?,?)";
+        Object[] createUserParams = new Object[]{postUserReq.getUserEmail(), postUserReq.getUserName(), postUserReq.getUserPassword(), postUserReq.getUserPhoneNumber()};
         this.jdbcTemplate.update(createUserQuery, createUserParams);
 
         String lastInserIdQuery = "select last_insert_id()";
-        return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
+        return this.jdbcTemplate.queryForObject(lastInserIdQuery,Long.class);
     }
 
     public int checkEmail(String email){
