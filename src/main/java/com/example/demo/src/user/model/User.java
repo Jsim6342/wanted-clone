@@ -1,29 +1,27 @@
 package com.example.demo.src.user.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.*;
 import java.util.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
-    private long userIdx;
+    private Long userIdx;
     private String userEmail;
     private String userPassword;
     private String userName;
     private String userPhoneNumber;
-    private long basicResumeIdx;
+    private Long basicResumeIdx;
     private String seekStatus;
-    private long point;
-    private int receiveInfo;
-    private int eventAlarm;
+    private Long point;
+    private Long receiveInfo;
+    private Long eventAlarm;
     private String authorityLevel;
-    private int oauth2;
-    private int autoLogin;
-    private java.util.Date created;
+    private Long oauth2;
+    private Long autoLogin;
+    private Date created;
     private Date updated;
     private String status;
 }
