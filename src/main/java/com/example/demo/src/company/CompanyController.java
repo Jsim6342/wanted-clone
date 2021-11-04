@@ -1,13 +1,9 @@
 package com.example.demo.src.company;
 
 import com.example.demo.config.response.BaseResponse;
-import com.example.demo.src.company.model.Company;
-import com.example.demo.src.company.model.GetCompanyRes;
 import com.example.demo.src.company.model.PostCompanyReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/app/companies")
