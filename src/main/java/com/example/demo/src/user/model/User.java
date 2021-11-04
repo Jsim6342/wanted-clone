@@ -1,8 +1,10 @@
 package com.example.demo.src.user.model;
 
 import lombok.*;
+import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -19,7 +21,7 @@ public class User {
     private String authorityLevel;
     private Long oauth2;
     private Long autoLogin;
-    private String created;
-    private String updated;
+    private Date created;
+    private Date updated;
     private String status;
 }
