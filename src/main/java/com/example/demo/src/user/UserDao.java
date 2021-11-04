@@ -118,21 +118,29 @@ public class UserDao {
         return this.jdbcTemplate.update(modifyUserNameQuery,modifyUserNameParams);
     }
 
-    public User getPwd(PostLoginReq postLoginReq){
-        String getPwdQuery = "select userIdx, password,email,userName,ID from UserInfo where ID = ?";
-        String getPwdParams = postLoginReq.getId();
+    public User getUserInfo(PostLoginReq postLoginReq){
+        String getPwdQuery = "select user_idx, user_email, user_password, user_name, user_phone_number, basic_resume_idx, seek_status, point, receive_info, event_alarm, authority_level, oauth2, auto_login, created, updated ,status from User where user_email = ?";
+        String getPwdParams = postLoginReq.getUserEmail();
 
         return this.jdbcTemplate.queryForObject(getPwdQuery,
                 (rs,rowNum)-> new User(
-                        rs.getInt("userIdx"),
-                        rs.getString("ID"),
-                        rs.getString("userName"),
-                        rs.getString("password"),
-                        rs.getString("email")
-                ),
-                getPwdParams
-                );
-
+                        rs.getLong("user_idx"),
+                        rs.getString("user_email"),
+                        rs.getString("user_password"),
+                        rs.getString("user_name"),
+                        rs.getString("user_phone_number"),
+                        rs.getLong("basic_resume_idx"),
+                        rs.getString("seek_status"),
+                        rs.getLong("point"),
+                        rs.getInt("receive_info"),
+                        rs.getInt("event_alarm"),
+                        rs.getString("authority_level"),
+                        rs.getInt("oauth2"),
+                        rs.getInt("auto_login"),
+                        rs.getDate("created"),
+                        rs.getDate("updated"),
+                        rs.getString("status")),
+                getPwdParams);
     }
 
 
