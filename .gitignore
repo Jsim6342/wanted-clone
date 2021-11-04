@@ -135,6 +135,9 @@ gradle-app.setting
 
 # End of https://www.toptal.com/developers/gitignore/api/gradle,intellij
 
+### ==== 사용자 설정 부분 === ###
+logs/
+
 ### yml 설정파일 ###
 mysql.yml
 
