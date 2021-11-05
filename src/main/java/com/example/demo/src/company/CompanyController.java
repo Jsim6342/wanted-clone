@@ -1,12 +1,11 @@
 package com.example.demo.src.company;
 
 import com.example.demo.config.response.BaseResponse;
-import com.example.demo.src.company.model.Company;
-import com.example.demo.src.company.model.PatchCompanyReq;
-import com.example.demo.src.company.model.PostCompanyReq;
-import com.example.demo.src.company.model.GetCompanyDTO;
+import com.example.demo.src.company.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/app/companies")
@@ -65,5 +64,15 @@ public class CompanyController {
         return new BaseResponse<>(result);
     }
 
+    /**
+     * 기업에 지원한 지원서 출력 페이지 API
+     * [GET] /app/companies/{companyId}/applications
+     * @return BaseResponse<>
+     */
+    @GetMapping("/{companyId}/applications")
+    public BaseResponse<List<GetApplicationsRes>> getApplications(@PathVariable Long companyId) {
+        List<GetApplicationsRes> result = companyProvider.getApplications(companyId);
+        return new BaseResponse<>(result);
+    }
 
 }
