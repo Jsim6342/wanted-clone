@@ -39,12 +39,12 @@ public class CompanyDao {
         this.jdbcTemplate.update(sql, params);
     }
 
-    public getCompanyDTO.ResponseDTO getCompany(Long companyId) {
+    public GetCompanyDTO.ResponseDTO getCompany(Long companyId) {
         // 회사 채용정보 SELECT
         String employmentSql = "select employment_idx, emp_title, rec_reward, vol_reward, emp_deadline from Employment where company_idx = ?";
         Long employmentParams = companyId;
-        List<getCompanyDTO.Employments> employmentList = this.jdbcTemplate.query(employmentSql,
-                (rs, rowNum) -> new getCompanyDTO.Employments(
+        List<GetCompanyDTO.Employments> employmentList = this.jdbcTemplate.query(employmentSql,
+                (rs, rowNum) -> new GetCompanyDTO.Employments(
                         rs.getLong("employment_idx"),
                         rs.getString("emp_title"),
                         rs.getLong("rec_reward"),
@@ -67,8 +67,8 @@ public class CompanyDao {
         // 회사 이미지 SELECT
         String imageSql = "select company_img_1, company_img_2, company_img_3, company_img_4, company_img_5 from Company_Img where company_idx = ?";
         Long imageParams = companyId;
-        getCompanyDTO.Images images = this.jdbcTemplate.queryForObject(imageSql,
-                (rs, rowNum) -> new getCompanyDTO.Images(
+        GetCompanyDTO.Images images = this.jdbcTemplate.queryForObject(imageSql,
+                (rs, rowNum) -> new GetCompanyDTO.Images(
                         rs.getString("company_img_1"),
                         rs.getString("company_img_2"),
                         rs.getString("company_img_3"),
@@ -79,13 +79,13 @@ public class CompanyDao {
         // 회사 정보 SELECT
         String companySql = "select company_name, company_introduce from Company where company_idx = ?";
         Long companyParams = companyId;
-        getCompanyDTO.Company company = this.jdbcTemplate.queryForObject(companySql,
-                (rs, rowNum) -> new getCompanyDTO.Company(
+        GetCompanyDTO.Company company = this.jdbcTemplate.queryForObject(companySql,
+                (rs, rowNum) -> new GetCompanyDTO.Company(
                         rs.getString("company_name"),
                         rs.getString("company_introduce")),
                 companyParams);
 
-        getCompanyDTO.ResponseDTO responseDTO = new getCompanyDTO.ResponseDTO();
+        GetCompanyDTO.ResponseDTO responseDTO = new GetCompanyDTO.ResponseDTO();
         responseDTO.setCompanyName(company.getCompanyName());
         responseDTO.setCompanyIntroduce(company.getIntroduce());
         responseDTO.setEmploymentList(employmentList);
@@ -110,5 +110,33 @@ public class CompanyDao {
                 req.getCompanyEmail(), req.getCompanyPhone(), req.getCompanyUrl(), companyId
         };
         this.jdbcTemplate.update(sql, params);
+    }
+
+    public Company getCompanyManagement(Long companyId) {
+        String sql = "select * from Company where company_idx = ?";
+
+        Long params = companyId;
+        return this.jdbcTemplate.queryForObject(sql,
+                (rs, rowNum) -> new Company(
+                        rs.getLong("company_idx"),
+                        rs.getLong("user_idx"),
+                        rs.getString("company_name"),
+                        rs.getString("company_nation"),
+                        rs.getString("company_location"),
+                        rs.getString("company_address"),
+                        rs.getString("registration_num"),
+                        rs.getString("sales"),
+                        rs.getString("industry_group"),
+                        rs.getLong("company_size"),
+                        rs.getString("company_introduce"),
+                        rs.getString("establishment"),
+                        rs.getString("company_email"),
+                        rs.getString("company_phone_num"),
+                        rs.getString("company_url"),
+                        rs.getString("response"),
+                        rs.getString("created"),
+                        rs.getString("updated"),
+                        rs.getString("status")),
+                params);
     }
 }
