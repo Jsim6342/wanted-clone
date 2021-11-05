@@ -1,6 +1,7 @@
 package com.example.demo.src.company;
 
 import com.example.demo.config.response.BaseResponse;
+import com.example.demo.src.company.model.PatchCompanyReq;
 import com.example.demo.src.company.model.PostCompanyReq;
 import com.example.demo.src.company.model.getCompanyDTO;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,13 @@ public class CompanyController {
      * [PATCH] /app/companies/{companyId}
      * @return BaseResponse<>
      */
+    @PostMapping("/{companyId}")
+    public BaseResponse<String> modifyCompany(@RequestBody PatchCompanyReq postCompanyReq,
+                                                       @PathVariable Long companyId) {
+        companyService.modifyCompany(companyId, postCompanyReq);
+        String result = "";
+        return new BaseResponse<>(result);
+    }
 
     /**
      * 기업 관리 페이지 API

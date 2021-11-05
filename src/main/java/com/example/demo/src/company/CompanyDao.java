@@ -94,4 +94,8 @@ public class CompanyDao {
 
         return responseDTO;
     }
+
+    public void modifyCompany(Long companyId, PatchCompanyReq postCompanyReq) {
+
+    }
 }

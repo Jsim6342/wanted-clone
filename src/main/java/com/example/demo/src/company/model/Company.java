@@ -29,8 +29,4 @@ public class Company {
     private String updated;
     private String status;
 
-    public Company(String companyName, String introduce) {
-        this.companyName = companyName;
-        this.introduce = introduce;
-    }
 }
