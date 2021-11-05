@@ -92,32 +92,6 @@ public class UserDao {
         );
     }
 
-    public GetUserRes getUsersByUserIdx(long userIdx){
-        String getUsersByUserIdxQuery = "select * from UserInfo where userIdx = ?";
-        long getUserByUserIdxParams = userIdx;
-        return this.jdbcTemplate.queryForObject(getUsersByUserIdxQuery,
-                (rs,rowNum) -> new GetUserRes(
-                        rs.getLong("user_idx"),
-                        rs.getString("user_email"),
-                        rs.getString("user_password"),
-                        rs.getString("user_name"),
-                        rs.getString("user_phone_number"),
-                        rs.getLong("basic_resume_idx"),
-                        rs.getString("seek_status"),
-                        rs.getLong("point"),
-                        rs.getInt("receive_info"),
-                        rs.getInt("event_alarm"),
-                        rs.getString("authority_level"),
-                        rs.getInt("oauth2"),
-                        rs.getInt("auto_login"),
-                        rs.getDate("created"),
-                        rs.getDate("updated"),
-                        rs.getString("status")),
-                getUserByUserIdxParams
-        );
-    }
-    
-
     public Long createUser(PostUserReq postUserReq){
         String createUserQuery = "insert into User (user_email, user_name, user_password, user_phone_number) VALUES (?,?,?,?)";
         Object[] createUserParams = new Object[]{postUserReq.getUserEmail(), postUserReq.getUserName(), postUserReq.getUserPassword(), postUserReq.getUserPhoneNumber()};
