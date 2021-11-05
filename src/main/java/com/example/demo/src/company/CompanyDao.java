@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -138,5 +139,39 @@ public class CompanyDao {
                         rs.getString("updated"),
                         rs.getString("status")),
                 params);
+    }
+
+    public List<GetApplicationsRes> getApplications(Long companyId) {
+        //회사 지원서idx SELECT
+        String employmentIdxSql = "select employment_idx from Employment where company_idx = ?";
+        Long employmentIdxParams = companyId;
+        List<Long> employmentIdxList = this.jdbcTemplate.query(employmentIdxSql,
+                (rs, rowNum) -> Long.valueOf(rs.getLong("employment_idx")),
+                employmentIdxParams);
+
+        if(employmentIdxList.isEmpty()) {
+            return new ArrayList<GetApplicationsRes>();
+        }
+
+        //지원서 SELECT
+        List<GetApplicationsRes> result = new ArrayList<>();
+        for (Long employmentIdx : employmentIdxList) {
+            result.add(getApplicationsRes(employmentIdx));
+        }
+        return result;
+
+    }
+
+    public GetApplicationsRes getApplicationsRes(Long employmentIdx) {
+        String applicationSql = "select application_idx, application_status, user_name, user_email, user_phone from Application where employment_idx = ?";
+        Long applicaitonParams = employmentIdx;
+        return this.jdbcTemplate.queryForObject(applicationSql,
+                (rs, rowNum) -> new GetApplicationsRes(
+                        rs.getLong("application_idx"),
+                        rs.getString("application_status"),
+                        rs.getString("user_name"),
+                        rs.getString("user_email"),
+                        rs.getString("user_phone")),
+                applicaitonParams);
     }
 }
