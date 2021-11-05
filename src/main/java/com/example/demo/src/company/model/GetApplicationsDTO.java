@@ -1,6 +1,7 @@
 package com.example.demo.src.company.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,41 +13,27 @@ public class GetApplicationsDTO {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
+    @Builder
     public static class ResponseDTO {
-        private Member member;
-        private Employment employment;
-        private Resume resume;
+
+        private applicationDTO applicationDTO;
         private List<file> fileList;
     }
 
-    //회원
+    // 지원서 출력 내용
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Member {
+    public static class applicationDTO {
         private Long userIdx;
         private String userName;
         private String userEmail;
         private String userPhoneNumber;
-    }
-
-    //지원서
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Employment {
         private Long applicationIdx;
         private Long employmentIdx;
         private String recommend;
         private String applicationStatus;
-        private String applicationDate; //updated
-    }
-
-    //이력서
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Resume {
+        private String updated;
         private Long resumeIdx;
         private String title;
     }

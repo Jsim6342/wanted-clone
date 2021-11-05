@@ -75,4 +75,16 @@ public class CompanyController {
         return new BaseResponse<>(result);
     }
 
+
+    /**
+     * 기업에 지원한 지원서 출력 페이지 API
+     * [GET] /app/companies/{companyId}/applications/{applicationId}
+     * @return BaseResponse<>
+     */
+    @GetMapping("/{companyId}/applications/{applicationId}")
+    public BaseResponse<GetApplicationsDTO.ResponseDTO> getApplication(@PathVariable Long companyId,
+                                                                 @PathVariable Long applicationId) {
+        GetApplicationsDTO.ResponseDTO result = companyProvider.getApplication(companyId, applicationId);
+        return new BaseResponse<>(result);
+    }
 }
