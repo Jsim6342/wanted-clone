@@ -102,4 +102,17 @@ public class CompanyController {
         return new BaseResponse<>(result);
     }
 
+    /**
+     * 기업-회원 이력서 조회 API
+     * [GET] /app/companies/{companyId}/resumes
+     * @return BaseResponse<>
+     */
+    @GetMapping("/{companyId}/resumes")
+    public BaseResponse<List<GetResumeDTO.ResponseDTO>> getResumes(@PathVariable Long companyId) {
+
+        Long userId = 6L; // 더미 데이터
+        List<GetResumeDTO.ResponseDTO> result = companyProvider.getResumes(userId);
+        return new BaseResponse<>(result);
+    }
+
 }
