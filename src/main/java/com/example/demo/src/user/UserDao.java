@@ -143,6 +143,13 @@ public class UserDao {
         return this.jdbcTemplate.update(modifyUserInfoQuery,modifyUserInfoParams);
     }
 
+    public int modifyUserStatus(Long userIdxByJwt){
+        String modifyUserStatusQuery = "update User set status = \"INACTIVE\" where user_idx = ?";
+        Long modifyUserStatusParams = userIdxByJwt;
+
+        return this.jdbcTemplate.update(modifyUserStatusQuery, modifyUserStatusParams);
+    }
+
     public User getUserInfo(PostLoginReq postLoginReq){
         String getPwdQuery = "select user_idx, user_email, user_password, user_name, user_phone_number, basic_resume_idx, seek_status, point, receive_info, event_alarm, authority_level, oauth2, auto_login, created, updated ,status from User where user_email = ?";
         String getPwdParams = postLoginReq.getUserEmail();
