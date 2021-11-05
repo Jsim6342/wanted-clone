@@ -1,6 +1,5 @@
 package com.example.demo.src.company;
 
-import com.example.demo.src.application.model.Application;
 import com.example.demo.src.company.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -227,5 +226,47 @@ public class CompanyDao {
     Object[] params = new Object[]{status, applicationId};
     this.jdbcTemplate.update(sql, params);
 
+    }
+
+    public List<GetResumeDTO.ResponseDTO> getResumes(Long userId) {
+
+        List<GetResumeDTO.ResponseDTO> result = new ArrayList<>();
+
+        // 이력서 출력 SELECT
+        StringBuffer br = new StringBuffer();
+        br.append("SELECT u.basic_resume_idx, r.title, r.user_name, s.major FROM User u ");
+        br.append("INNER JOIN Resume r ON r.resume_idx = u.basic_resume_idx ");
+        br.append("INNER JOIN School s ON s.resume_idx = r.resume_idx ");
+        br.append("WHERE u.seek_status = '현재 구직 중' ");
+        String resumeSql = br.toString();
+
+        List<GetResumeDTO.resumeDTO> resumeList = this.jdbcTemplate.query(resumeSql,
+                (rs, rowNum) -> new GetResumeDTO.resumeDTO(
+                        rs.getLong("basic_resume_idx"),
+                        rs.getString("title"),
+                        rs.getString("user_name"),
+                        rs.getString("major"))
+        );
+
+        // 스킬 정보 SELECT
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("SELECT s.skill_name FROM Skill_Res_Map m ");
+        buffer.append("INNER JOIN Skill s ON s.skill_num = m.skill_num ");
+        buffer.append("WHERE m.resume_idx = ?");
+        String skillSql = buffer.toString();
+
+        for (GetResumeDTO.resumeDTO resume : resumeList) {
+
+            Long skillParam = resume.getResumeIdx();
+            List<String> skills = this.jdbcTemplate.query(skillSql,
+                    (rs, row) -> new String(
+                            rs.getString("skill_name")),
+                    skillParam);
+
+            result.add(new GetResumeDTO.ResponseDTO(resume, skills));
+
+        }
+
+        return result;
     }
 }
