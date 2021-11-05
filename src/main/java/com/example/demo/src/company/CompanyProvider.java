@@ -27,7 +27,7 @@ public class CompanyProvider {
         return companyDao.getApplications(companyId);
     }
 
-    public GetApplicationsDTO.ResponseDTO getApplication(Long companyId, Long applicationId) {
-        return companyDao.getApplication(companyId, applicationId);
+    public GetApplicationsDTO.ResponseDTO getApplication(Long applicationId) {
+        return companyDao.getApplication(applicationId);
     }
 }
