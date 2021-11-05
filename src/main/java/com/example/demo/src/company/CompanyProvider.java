@@ -1,6 +1,6 @@
 package com.example.demo.src.company;
 
-import com.example.demo.src.company.model.GetCompanyRes;
+import com.example.demo.src.company.model.getCompanyDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +10,9 @@ public class CompanyProvider {
 
     private final CompanyDao companyDao;
 
-    public GetCompanyRes getCompany(Long companyId) {
+    public getCompanyDTO.ResponseDTO getCompany(Long companyId) {
 
-        GetCompanyRes getCompanyRes = companyDao.getCompany(companyId);
+        getCompanyDTO.ResponseDTO getCompanyRes = companyDao.getCompany(companyId);
         return getCompanyRes;
     }
 }
