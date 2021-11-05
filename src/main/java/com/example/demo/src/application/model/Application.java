@@ -13,6 +13,9 @@ public class Application {
     private Long employmentIdx;
     private Long resumeIdx;
     private Long attachedFileIdx;
+    private String userName;
+    private String userEmail;
+    private String userPhone;
     private String recommend;
     private String applicationStatus;
     private String created;

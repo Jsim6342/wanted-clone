@@ -1,5 +1,6 @@
 package com.example.demo.src.company;
 
+import com.example.demo.src.application.model.Application;
 import com.example.demo.src.company.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -173,5 +174,51 @@ public class CompanyDao {
                         rs.getString("user_email"),
                         rs.getString("user_phone")),
                 applicaitonParams);
+    }
+
+
+    public GetApplicationsDTO.ResponseDTO getApplication(Long companyId, Long applicationId) {
+
+        // 지원서 출력 내용 조회
+        StringBuffer br = new StringBuffer();
+        br.append("SELECT u.user_idx, u.user_name, u.user_email, u.user_phone_number, ");
+        br.append("a.application_idx, a.employment_idx, a.recommend, a.application_status, a.updated, ");
+        br.append("r.resume_idx, r.title FROM Application a ");
+        br.append("INNER JOIN User u ON u.user_idx = a.user_idx ");
+        br.append("INNER JOIN Resume r ON r.resume_idx = a.resume_idx ");
+        br.append("WHERE a.application_idx = ?");
+        String applicationSql = br.toString();
+
+        Long applicaitonParams = applicationId;
+        GetApplicationsDTO.applicationDTO applicationDTO = this.jdbcTemplate.queryForObject(applicationSql,
+                (rs, rowNum) -> new GetApplicationsDTO.applicationDTO(
+                        rs.getLong("user_idx"),
+                        rs.getString("user_name"),
+                        rs.getString("user_email"),
+                        rs.getString("user_phone_number"),
+                        rs.getLong("application_idx"),
+                        rs.getLong("employment_idx"),
+                        rs.getString("recommend"),
+                        rs.getString("application_status"),
+                        rs.getString("updated"),
+                        rs.getLong("resume_idx"),
+                        rs.getString("title")),
+                applicaitonParams);
+
+        // 첨부파일 SELECT
+        String fileSql = "select attached_file_idx, file_name, save_path from Attached_File where application_idx = ?";
+        Long fileParams = applicationId;
+        List<GetApplicationsDTO.file> fileList = this.jdbcTemplate.query(fileSql,
+                (rs, rowNum) -> new GetApplicationsDTO.file(
+                        rs.getLong("attached_file_idx"),
+                        rs.getString("file_name"),
+                        rs.getString("save_path")),
+                fileParams);
+
+        // result
+        return GetApplicationsDTO.ResponseDTO.builder()
+                .applicationDTO(applicationDTO)
+                .fileList(fileList)
+                .build();
     }
 }

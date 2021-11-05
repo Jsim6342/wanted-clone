@@ -2,6 +2,7 @@ package com.example.demo.src.company.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ public class GetCompanyDTO {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
+    @Builder
     public static class ResponseDTO {
         private String companyName;
         private String companyIntroduce;
