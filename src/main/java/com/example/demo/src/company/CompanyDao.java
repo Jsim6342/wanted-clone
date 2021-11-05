@@ -79,8 +79,8 @@ public class CompanyDao {
         // 회사 정보 SELECT
         String companySql = "select company_name, company_introduce from Company where company_idx = ?";
         Long companyParams = companyId;
-        Company company = this.jdbcTemplate.queryForObject(companySql,
-                (rs, rowNum) -> new Company(
+        getCompanyDTO.Company company = this.jdbcTemplate.queryForObject(companySql,
+                (rs, rowNum) -> new getCompanyDTO.Company(
                         rs.getString("company_name"),
                         rs.getString("company_introduce")),
                 companyParams);
