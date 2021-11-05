@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-public class getCompanyDTO {
+public class GetCompanyDTO {
 
     @Data
     @AllArgsConstructor

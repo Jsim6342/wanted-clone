@@ -1,9 +1,10 @@
 package com.example.demo.src.company;
 
 import com.example.demo.config.response.BaseResponse;
+import com.example.demo.src.company.model.Company;
 import com.example.demo.src.company.model.PatchCompanyReq;
 import com.example.demo.src.company.model.PostCompanyReq;
-import com.example.demo.src.company.model.getCompanyDTO;
+import com.example.demo.src.company.model.GetCompanyDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +35,8 @@ public class CompanyController {
      * @return BaseResponse<GetCompanyRes>
      */
     @GetMapping("/{companyId}")
-    public BaseResponse<getCompanyDTO.ResponseDTO> getCompany(@PathVariable Long companyId) {
-        getCompanyDTO.ResponseDTO result = companyProvider.getCompany(companyId);
+    public BaseResponse<GetCompanyDTO.ResponseDTO> getCompany(@PathVariable Long companyId) {
+        GetCompanyDTO.ResponseDTO result = companyProvider.getCompany(companyId);
         return new BaseResponse<>(result);
     }
 
@@ -58,7 +59,11 @@ public class CompanyController {
      * [GET] /app/companies/{companyId}/management
      * @return BaseResponse<>
      */
-
+    @GetMapping("/{companyId}/management")
+    public BaseResponse<Company> getCompanyManagement(@PathVariable Long companyId) {
+        Company result = companyProvider.getCompanyManagement(companyId);
+        return new BaseResponse<>(result);
+    }
 
 
 }

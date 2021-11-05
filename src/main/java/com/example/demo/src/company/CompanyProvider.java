@@ -1,6 +1,7 @@
 package com.example.demo.src.company;
 
-import com.example.demo.src.company.model.getCompanyDTO;
+import com.example.demo.src.company.model.Company;
+import com.example.demo.src.company.model.GetCompanyDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +11,14 @@ public class CompanyProvider {
 
     private final CompanyDao companyDao;
 
-    public getCompanyDTO.ResponseDTO getCompany(Long companyId) {
+    public GetCompanyDTO.ResponseDTO getCompany(Long companyId) {
 
-        getCompanyDTO.ResponseDTO getCompanyRes = companyDao.getCompany(companyId);
+        GetCompanyDTO.ResponseDTO getCompanyRes = companyDao.getCompany(companyId);
         return getCompanyRes;
+    }
+
+    public Company getCompanyManagement(Long companyId) {
+        Company company = companyDao.getCompanyManagement(companyId);
+        return company;
     }
 }
