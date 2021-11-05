@@ -49,13 +49,12 @@ public class JwtService {
     @return int
     @throws BaseException
      */
-    public int getUserIdx() throws BaseException{
+    public Long getUserIdx() throws BaseException{
         //1. JWT 추출
         String accessToken = getJwt();
         if(accessToken == null || accessToken.length() == 0){
             throw new BaseException(EMPTY_JWT);
         }
-
         // 2. JWT parsing
         Jws<Claims> claims;
         try{
@@ -65,9 +64,8 @@ public class JwtService {
         } catch (Exception ignored) {
             throw new BaseException(INVALID_JWT);
         }
-
         // 3. userIdx 추출
-        return claims.getBody().get("userIdx",Integer.class);
+        return claims.getBody().get("userIdx", Long.class);
     }
 
 }

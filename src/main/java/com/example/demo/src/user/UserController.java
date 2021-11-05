@@ -37,16 +37,17 @@ public class UserController {
     }
 
     /**
-     * 회원 전체 정보 조회 API
+     * JWT 에서 추출한 idx로 회원정보 조회 API
      * [GET] /users
      * @return BaseResponse<List<GetUserRes>>
      */
     //Query String
     @ResponseBody
     @GetMapping("")
-    public BaseResponse<List<GetUserRes>> getUsers(){
+    public BaseResponse<GetUserRes> getUsers() throws BaseException {
+        Long userIdxByJwt = jwtService.getUserIdx();
         try{
-            List<GetUserRes> getUsersRes = userProvider.getUsers();
+            GetUserRes getUsersRes = userProvider.getUser(userIdxByJwt);
             return new BaseResponse<>(getUsersRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -136,7 +137,7 @@ public class UserController {
     public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
         try {
             //jwt에서 idx 추출.
-            int userIdxByJwt = jwtService.getUserIdx();
+            Long userIdxByJwt = jwtService.getUserIdx();
             //userIdx와 접근한 유저가 같은지 확인
             if(userIdx != userIdxByJwt){
                 return new BaseResponse<>(INVALID_USER_JWT);
