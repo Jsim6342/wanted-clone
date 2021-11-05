@@ -123,8 +123,8 @@ public class UserDao {
         Object[] createUserParams = new Object[]{postUserReq.getUserEmail(), postUserReq.getUserName(), postUserReq.getUserPassword(), postUserReq.getUserPhoneNumber()};
         this.jdbcTemplate.update(createUserQuery, createUserParams);
 
-        String lastInserIdQuery = "select last_insert_id()";
-        return this.jdbcTemplate.queryForObject(lastInserIdQuery,Long.class);
+        String lastInsertIdQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdQuery,Long.class);
     }
 
     public int checkEmail(String email){

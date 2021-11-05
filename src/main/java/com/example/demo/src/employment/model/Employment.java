@@ -1,10 +1,9 @@
 package com.example.demo.src.employment.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employment {
@@ -23,11 +22,4 @@ public class Employment {
     private String created;
     private String updated;
     private String status;
-
-    public Employment(String empTitle, Long recReward, Long volReward, String empDeadline) {
-        this.empTitle = empTitle;
-        this.recReward = recReward;
-        this.volReward = volReward;
-        this.empDeadline = empDeadline;
-    }
 }

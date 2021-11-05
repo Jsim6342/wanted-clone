@@ -32,6 +32,16 @@ public enum BaseResponseStatus {
     POST_USERS_INVALID_EMAIL(false, 2016, "이메일 형식을 확인해주세요."),
     POST_USERS_EXISTS_EMAIL(false,2017,"중복된 이메일입니다."),
 
+    // [POST] /employments
+    POST_EMPLOYMENT_EMPTY_TITLE(false, 2100, "채용공고 제목을 입력하세요."),
+    POST_EMPLOYMENT_EMPTY_COMPANY_NAME(false, 2101, "회사 이름을 입력하세요."),
+    POST_EMPLOYMENT_EMPTY_COMPANY_LOCATION(false, 2102, "회사 위치를 입력하세요."),
+    POST_EMPLOYMENT_EMPTY_REC_REWARD(false, 2103, "추천인 채용보상금을 입력하세요."),
+    POST_EMPLOYMENT_EMPTY_VOL_REWARD(false, 2104, "지원자 채용보상금을 입력하세요."),
+    POST_EMPLOYMENT_EMPTY_CONTENTS(false, 2105, "채용공고 본문을 입력하세요."),
+    POST_EMPLOYMENT_EMPTY_DEADLINE(false, 2106, "채용공고 마감일을 입력하세요."),
+    POST_EMPLOYMENT_EMPTY_WORK_LOCATION(false, 2107, "근무지 위치를 입력하세요."),
+
 
 
     /**
