@@ -18,4 +18,8 @@ public class CompanyService {
     public void modifyCompany(Long companyId, PatchCompanyReq postCompanyReq) {
         companyDao.modifyCompany(companyId, postCompanyReq);
     }
+
+    public void setApplicationStatus(Long applicationId, String status) {
+        companyDao.setApplicationStatus(applicationId, status);
+    }
 }

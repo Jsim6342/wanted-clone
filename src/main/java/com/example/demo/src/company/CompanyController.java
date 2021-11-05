@@ -43,7 +43,7 @@ public class CompanyController {
     /**
      * 기업 정보 수정 API
      * [PATCH] /app/companies/{companyId}
-     * @return BaseResponse<>
+     * @return BaseResponse<String>
      */
     @PatchMapping("/{companyId}")
     public BaseResponse<String> modifyCompany(@RequestBody PatchCompanyReq postCompanyReq,
@@ -67,7 +67,7 @@ public class CompanyController {
     /**
      * 기업에 지원한 지원서 출력 페이지 API
      * [GET] /app/companies/{companyId}/applications
-     * @return BaseResponse<>
+     * @return BaseResponse<List<GetApplicationsRes>>
      */
     @GetMapping("/{companyId}/applications")
     public BaseResponse<List<GetApplicationsRes>> getApplications(@PathVariable Long companyId) {
@@ -79,12 +79,27 @@ public class CompanyController {
     /**
      * 기업에 지원한 지원서 출력 페이지 API
      * [GET] /app/companies/{companyId}/applications/{applicationId}
-     * @return BaseResponse<>
+     * @return BaseResponse<GetApplicationsDTO.ResponseDTO>
      */
     @GetMapping("/{companyId}/applications/{applicationId}")
     public BaseResponse<GetApplicationsDTO.ResponseDTO> getApplication(@PathVariable Long companyId,
                                                                  @PathVariable Long applicationId) {
-        GetApplicationsDTO.ResponseDTO result = companyProvider.getApplication(companyId, applicationId);
+        GetApplicationsDTO.ResponseDTO result = companyProvider.getApplication(applicationId);
         return new BaseResponse<>(result);
     }
+
+    /**
+     * 지원서 결정 API
+     * [PATCH] /app/companies/{companyId}/applications/{applicationId}
+     * @return BaseResponse<String>
+     */
+    @PatchMapping("/{companyId}/applications/{applicationId}")
+    public BaseResponse<String> setApplicationStatus(@PathVariable Long companyId,
+                                                     @PathVariable Long applicationId,
+                                                     @RequestBody String status) {
+        companyService.setApplicationStatus(applicationId, status);
+        String result = "";
+        return new BaseResponse<>(result);
+    }
+
 }

@@ -177,7 +177,7 @@ public class CompanyDao {
     }
 
 
-    public GetApplicationsDTO.ResponseDTO getApplication(Long companyId, Long applicationId) {
+    public GetApplicationsDTO.ResponseDTO getApplication(Long applicationId) {
 
         // 지원서 출력 내용 조회
         StringBuffer br = new StringBuffer();
@@ -220,5 +220,12 @@ public class CompanyDao {
                 .applicationDTO(applicationDTO)
                 .fileList(fileList)
                 .build();
+    }
+
+    public void setApplicationStatus(Long applicationId, String status) {
+    String sql = "update Application set application_status = ? where application_idx = ?";
+    Object[] params = new Object[]{status, applicationId};
+    this.jdbcTemplate.update(sql, params);
+
     }
 }
