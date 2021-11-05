@@ -39,7 +39,7 @@ public class UserController {
     /**
      * JWT 에서 추출한 idx로 회원정보 조회 API
      * [GET] /users
-     * @return BaseResponse<List<GetUserRes>>
+     * @return BaseResponse<GetUserRes>
      */
     //Query String
     @ResponseBody
@@ -50,6 +50,24 @@ public class UserController {
             GetUserRes getUsersRes = userProvider.getUser(userIdxByJwt);
             return new BaseResponse<>(getUsersRes);
         } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     *  JWT 에서 추출한 idx로 회원정보 수정 API
+     * [PATCH]
+     * @return BaseResponse<String>
+     */
+    @ResponseBody
+    @PatchMapping("")
+    public BaseResponse<String> modifyUserInfo(@RequestBody PatchUserReq patchUserReq){
+        try {
+            userService.modifyUserInfo(patchUserReq);
+
+            String result = "";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
@@ -127,31 +145,7 @@ public class UserController {
         }
     }
 
-    /**
-     * 유저정보변경 API
-     * [PATCH] /users/:userIdx
-     * @return BaseResponse<String>
-     */
-    @ResponseBody
-    @PatchMapping("/{userIdx}")
-    public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
-        try {
-            //jwt에서 idx 추출.
-            Long userIdxByJwt = jwtService.getUserIdx();
-            //userIdx와 접근한 유저가 같은지 확인
-            if(userIdx != userIdxByJwt){
-                return new BaseResponse<>(INVALID_USER_JWT);
-            }
-            //같다면 유저네임 변경
-            PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getUserName());
-            userService.modifyUserName(patchUserReq);
 
-            String result = "";
-        return new BaseResponse<>(result);
-        } catch (BaseException exception) {
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
 
 
 }
