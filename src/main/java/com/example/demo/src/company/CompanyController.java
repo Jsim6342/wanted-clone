@@ -45,7 +45,7 @@ public class CompanyController {
      * [PATCH] /app/companies/{companyId}
      * @return BaseResponse<>
      */
-    @PostMapping("/{companyId}")
+    @PatchMapping("/{companyId}")
     public BaseResponse<String> modifyCompany(@RequestBody PatchCompanyReq postCompanyReq,
                                                        @PathVariable Long companyId) {
         companyService.modifyCompany(companyId, postCompanyReq);

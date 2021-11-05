@@ -95,7 +95,20 @@ public class CompanyDao {
         return responseDTO;
     }
 
-    public void modifyCompany(Long companyId, PatchCompanyReq postCompanyReq) {
+    public void modifyCompany(Long companyId, PatchCompanyReq req) {
+        StringBuffer br = new StringBuffer();
+        br.append("update Company set ");
+        br.append("company_name = ?, company_nation = ?, company_location = ?, company_address = ?, ");
+        br.append("sales = ?, industry_group = ?, company_size = ?, company_introduce = ?, ");
+        br.append("company_email = ?, company_phone_num = ?, company_url = ? ");
+        br.append("where company_idx = ?");
+        String sql = br.toString();
 
+        Object[] params = new Object[]{
+                req.getCompanyName(), req.getCompanyNation(), req.getCompanyLocation(), req.getCompanyAddress(),
+                req.getSales(), req.getIndustryGroup(), req.getCompanySize(),req.getIntroduce(),
+                req.getCompanyEmail(), req.getCompanyPhone(), req.getCompanyUrl(), companyId
+        };
+        this.jdbcTemplate.update(sql, params);
     }
 }
