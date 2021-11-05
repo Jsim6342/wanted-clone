@@ -1,12 +1,6 @@
 package com.example.demo.src.company;
 
-import com.example.demo.src.company.model.Company;
-import com.example.demo.src.company.model.CompanyImg;
-import com.example.demo.src.company.model.GetCompanyRes;
-import com.example.demo.src.company.model.PostCompanyReq;
-import com.example.demo.src.employment.model.Employment;
-import com.example.demo.src.user.model.GetUserRes;
-import lombok.RequiredArgsConstructor;
+import com.example.demo.src.company.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -45,12 +39,13 @@ public class CompanyDao {
         this.jdbcTemplate.update(sql, params);
     }
 
-    public GetCompanyRes getCompany(Long companyId) {
+    public getCompanyDTO.ResponseDTO getCompany(Long companyId) {
         // 회사 채용정보 SELECT
-        String employmentSql = "select emp_title, rec_reward, vol_reward, emp_deadline from Employment where company_idx = ?";
+        String employmentSql = "select employment_idx, emp_title, rec_reward, vol_reward, emp_deadline from Employment where company_idx = ?";
         Long employmentParams = companyId;
-        List<Employment> employmentList = this.jdbcTemplate.query(employmentSql,
-                (rs, rowNum) -> new Employment(
+        List<getCompanyDTO.Employments> employmentList = this.jdbcTemplate.query(employmentSql,
+                (rs, rowNum) -> new getCompanyDTO.Employments(
+                        rs.getLong("employment_idx"),
                         rs.getString("emp_title"),
                         rs.getLong("rec_reward"),
                         rs.getLong("vol_reward"),
@@ -72,8 +67,8 @@ public class CompanyDao {
         // 회사 이미지 SELECT
         String imageSql = "select company_img_1, company_img_2, company_img_3, company_img_4, company_img_5 from Company_Img where company_idx = ?";
         Long imageParams = companyId;
-        CompanyImg companyImg = this.jdbcTemplate.queryForObject(imageSql,
-                (rs, rowNum) -> new CompanyImg(
+        getCompanyDTO.Images images = this.jdbcTemplate.queryForObject(imageSql,
+                (rs, rowNum) -> new getCompanyDTO.Images(
                         rs.getString("company_img_1"),
                         rs.getString("company_img_2"),
                         rs.getString("company_img_3"),
@@ -90,13 +85,13 @@ public class CompanyDao {
                         rs.getString("company_introduce")),
                 companyParams);
 
-        GetCompanyRes getCompanyRes = new GetCompanyRes();
-        getCompanyRes.setCompanyName(company.getCompanyName());
-        getCompanyRes.setCompanyIntroduce(company.getIntroduce());
-        getCompanyRes.setEmploymentList(employmentList);
-        getCompanyRes.setImageUrls(companyImg);
-        getCompanyRes.setTags(keywordList);
+        getCompanyDTO.ResponseDTO responseDTO = new getCompanyDTO.ResponseDTO();
+        responseDTO.setCompanyName(company.getCompanyName());
+        responseDTO.setCompanyIntroduce(company.getIntroduce());
+        responseDTO.setEmploymentList(employmentList);
+        responseDTO.setImageUrls(images);
+        responseDTO.setTags(keywordList);
 
-        return getCompanyRes;
+        return responseDTO;
     }
 }
