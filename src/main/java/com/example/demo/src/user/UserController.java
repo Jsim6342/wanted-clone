@@ -72,6 +72,23 @@ public class UserController {
         }
     }
 
+    /**
+     *  JWT 에서 추출한 idx 로 회원탈퇴 API
+     * [DELETE]
+     */
+    @ResponseBody
+    @DeleteMapping("")
+    public BaseResponse<String> deleteUserInfo(){
+        try{
+            userService.modifyUserStatus();
+
+            String result = "";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
 
 
     /**

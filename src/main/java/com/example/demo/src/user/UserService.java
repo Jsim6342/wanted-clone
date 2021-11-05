@@ -65,4 +65,16 @@ public class UserService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public void modifyUserStatus() throws BaseException{
+        try{
+            Long userIdxByJwt = jwtService.getUserIdx();
+            int result = userDao.modifyUserStatus(userIdxByJwt);
+            if(result == 0){
+                throw new BaseException(MODIFY_FAIL_USERNAME);
+            }
+        } catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
