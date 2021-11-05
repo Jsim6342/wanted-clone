@@ -42,6 +42,31 @@ public class UserDao {
                 );
     }
 
+    public GetUserRes getUser(Long userIdxByJwt){
+        String getUsersQuery = "select * from User where user_idx = ?";
+        Long getUserByUserIdxByJwt = userIdxByJwt;
+        return this.jdbcTemplate.queryForObject(getUsersQuery,
+                (rs,rowNum) -> new GetUserRes(
+                        rs.getLong("user_idx"),
+                        rs.getString("user_email"),
+                        rs.getString("user_password"),
+                        rs.getString("user_name"),
+                        rs.getString("user_phone_number"),
+                        rs.getLong("basic_resume_idx"),
+                        rs.getString("seek_status"),
+                        rs.getLong("point"),
+                        rs.getInt("receive_info"),
+                        rs.getInt("event_alarm"),
+                        rs.getString("authority_level"),
+                        rs.getInt("oauth2"),
+                        rs.getInt("auto_login"),
+                        rs.getDate("created"),
+                        rs.getDate("updated"),
+                        rs.getString("status")),
+                getUserByUserIdxByJwt
+        );
+    }
+
     public GetUserRes getUsersByEmail(String email){
         String getUsersByEmailQuery = "select * from User where user_email =?";
         String getUsersByEmailParams = email;

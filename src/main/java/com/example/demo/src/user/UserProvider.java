@@ -42,6 +42,16 @@ public class UserProvider {
         }
     }
 
+    public GetUserRes getUser(Long userIdxByJwt) throws BaseException{
+        try{
+            GetUserRes getUserRes = userDao.getUser(userIdxByJwt);
+            return getUserRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public GetUserRes getUsersByEmail(String email) throws BaseException{
         try{
             GetUserRes getUsersRes = userDao.getUsersByEmail(email);
