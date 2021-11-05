@@ -3,12 +3,14 @@ package com.example.demo.src.employment;
 
 import com.example.demo.config.exception.BaseException;
 import com.example.demo.config.response.BaseResponse;
+import com.example.demo.src.employment.model.GetEmploymentRes;
 import com.example.demo.src.employment.model.PostEmploymentReq;
 import com.example.demo.src.employment.model.PostEmploymentRes;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 import static com.example.demo.config.response.BaseResponseStatus.*;
 
@@ -75,6 +77,23 @@ public class EmploymentController {
             PostEmploymentRes postEmploymentRes = employmentService.createEmployment(postEmploymentReq);
             return new BaseResponse<>(postEmploymentRes);
         }catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 채용공고 상세 API
+     * [GET]
+     */
+    @ResponseBody
+    @GetMapping("{employmentIdx}")
+    public BaseResponse<GetEmploymentRes> getEmploymentByEmploymentIdx(@PathVariable("employmentIdx") Long employmentIdx){
+        try{
+            GetEmploymentRes getEmploymentRes = employmentProvider.getEmploymentByEmploymentIdx(employmentIdx);
+            return new BaseResponse<>(getEmploymentRes);
+        } catch (EmptyResultDataAccessException emptyException) {
+            return new BaseResponse<>(RESULT_ROWS_EMPTY);
+        } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
     }
