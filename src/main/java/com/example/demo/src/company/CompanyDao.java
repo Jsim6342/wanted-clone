@@ -374,7 +374,7 @@ public class CompanyDao {
                 .careerList(careerList)
                 .skillList(skillList)
                 .languageList(languageDTOList)
-                .portfolio(portfolio.isEmpty() ? null : portfolio.get(0))
+                .portfolio(portfolio.isEmpty() ? new GetResumeDTO.Portfolio() : portfolio.get(0))
                 .build();
 
     }
