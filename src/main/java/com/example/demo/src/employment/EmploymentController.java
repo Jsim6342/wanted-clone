@@ -129,7 +129,7 @@ public class EmploymentController {
 
     /**
      * 채용공고 좋아요 API
-     * [GET]
+     * [POST]
      */
     @ResponseBody
     @PostMapping("/liked")
@@ -137,6 +137,21 @@ public class EmploymentController {
         try{
             PostEmploymentLikedRes likedRes = employmentService.employmentLiked(likedReq);
             return new BaseResponse<>(likedRes);
+        }catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 채용공고 북마크 API
+     * [POST]
+     */
+    @ResponseBody
+    @PostMapping("/bookmark")
+    public BaseResponse<PostEmploymentBookmarkRes> employmentBookmark(@RequestBody PostEmploymentBookmarkReq bookmarkReq){
+        try{
+            PostEmploymentBookmarkRes bookmarkRes = employmentService.employmentBookmark(bookmarkReq);
+            return new BaseResponse<>(bookmarkRes);
         }catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
