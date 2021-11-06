@@ -72,8 +72,9 @@ public enum BaseResponseStatus {
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
     PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다."),
 
-    //[POST] / Company
+    // Company
     FAILED_CREATE_RESUME_LIKE(false, 4100, "이력서 좋아요가 등록되지 않았습니다."),
+    FAILED_DELETE_RESUME_LIKE(false, 4100, "이력서 좋아요가 취소되지 않았습니다."),
 
 
     /**

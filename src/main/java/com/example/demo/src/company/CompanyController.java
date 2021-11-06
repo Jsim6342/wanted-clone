@@ -140,4 +140,18 @@ public class CompanyController {
         String result = "";
         return new BaseResponse<>(result);
     }
+
+    /**
+     * 기업 이력서 원해요 삭제 API
+     * [POST] /app/companies/{companyId}/resumes/{resumeId}
+     * @return BaseResponse<String>
+     */
+    @DeleteMapping("/{companyId}/resumes/{resumeId}")
+    public BaseResponse<String> deleteResumeLike(@PathVariable Long companyId,
+                                                 @PathVariable Long resumeId) {
+
+        companyService.deleteResumeLike(companyId, resumeId);
+        String result = "";
+        return new BaseResponse<>(result);
+    }
 }

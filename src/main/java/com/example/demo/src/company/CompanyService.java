@@ -26,4 +26,8 @@ public class CompanyService {
     public void createResumeLike(Long companyId, Long resumeId) {
         companyDao.createResumeLike(companyId, resumeId);
     }
+
+    public void deleteResumeLike(Long companyId, Long resumeId) {
+        companyDao.deleteResumeLike(companyId, resumeId);
+    }
 }
