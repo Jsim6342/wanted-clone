@@ -22,4 +22,8 @@ public class CompanyService {
     public void setApplicationStatus(Long applicationId, String status) {
         companyDao.setApplicationStatus(applicationId, status);
     }
+
+    public void createResumeLike(Long companyId, Long resumeId) {
+        companyDao.createResumeLike(companyId, resumeId);
+    }
 }
