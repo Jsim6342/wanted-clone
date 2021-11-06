@@ -1,5 +1,6 @@
 package com.example.demo.src.company;
 
+import com.example.demo.config.exception.BaseException;
 import com.example.demo.src.company.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.demo.config.response.BaseResponseStatus.NONEXISTENT_RESUME;
 
 @Repository
 public class CompanyDao {
@@ -276,7 +279,7 @@ public class CompanyDao {
         // 이력서 SELECT
         String resumeSql = "select user_name, user_email, user_phone_number, contents from Resume where resume_idx = ?";
         Long resumeParams = resumeId;
-        GetResumeDTO.Resume resume = this.jdbcTemplate.queryForObject(resumeSql,
+        List<GetResumeDTO.Resume> resumeList = this.jdbcTemplate.query(resumeSql,
                 (rs, rowNum) -> new GetResumeDTO.Resume(
                         rs.getString("user_name"),
                         rs.getString("user_email"),
@@ -284,6 +287,9 @@ public class CompanyDao {
                         rs.getString("contents")),
                 resumeParams);
 
+        if(resumeList.isEmpty()) {
+            new BaseException(NONEXISTENT_RESUME);
+        }
 
         // 학력 SELECT
         String schoolSql = "select school_name, major, subject_contents, entranced, graduated, in_school from School where resume_idx = ?";
@@ -354,7 +360,7 @@ public class CompanyDao {
         // 포트폴리오 SELECT
         String portfolioSql = "select portfolio_url_1, portfolio_url_2, portfolio_url_3 from Portfolio_URL where resume_idx = ?";
         Long portfolioParams = resumeId;
-        GetResumeDTO.Portfolio portfolio = this.jdbcTemplate.queryForObject(portfolioSql,
+        List<GetResumeDTO.Portfolio> portfolio = this.jdbcTemplate.query(portfolioSql,
                 (rs, rowNum) -> new GetResumeDTO.Portfolio(
                         rs.getString("portfolio_url_1"),
                         rs.getString("portfolio_url_2"),
@@ -363,12 +369,12 @@ public class CompanyDao {
 
         //result build
         return GetResumeDTO.ResponseDTO.builder()
-                .resume(resume)
+                .resume(resumeList.get(0))
                 .schoolList(schoolList)
                 .careerList(careerList)
                 .skillList(skillList)
                 .languageList(languageDTOList)
-                .portfolio(portfolio)
+                .portfolio(portfolio.isEmpty() ? null : portfolio.get(0))
                 .build();
 
     }
