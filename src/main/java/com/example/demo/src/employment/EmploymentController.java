@@ -3,6 +3,7 @@ package com.example.demo.src.employment;
 
 import com.example.demo.config.exception.BaseException;
 import com.example.demo.config.response.BaseResponse;
+import com.example.demo.src.employment.model.GetEmploymentPageRes;
 import com.example.demo.src.employment.model.GetEmploymentRes;
 import com.example.demo.src.employment.model.PostEmploymentReq;
 import com.example.demo.src.employment.model.PostEmploymentRes;
@@ -12,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 import static com.example.demo.config.response.BaseResponseStatus.*;
 
 @RestController
@@ -82,7 +86,7 @@ public class EmploymentController {
     }
 
     /**
-     * 채용공고 상세 API
+     * 채용공고 페이지 상세 API
      * [GET]
      */
     @ResponseBody
@@ -97,4 +101,33 @@ public class EmploymentController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    /**
+     * 채용공고 페이지 조회(태그,지역,경력) API
+     * [GET]
+     */
+    @ResponseBody
+    @GetMapping("")
+    public BaseResponse<List<GetEmploymentPageRes>> getEmploymentPage(
+            @RequestParam(value = "tag", required = false) String tag,
+            @RequestParam(value = "location", required = false) String location,
+            @RequestParam(value = "years", required = false) Long year){
+        if(tag.equals("")){
+            tag = "인원 급성장";
+        }
+        if(location.equals("")){
+            location = "서울";
+        }
+        if(year == null){
+            year = (long)0;
+        }
+
+        try{
+            List<GetEmploymentPageRes> getEmploymentPageRes = employmentProvider.getEmploymentPage(tag, location, year);
+            return new BaseResponse<>(getEmploymentPageRes);
+        }catch (BaseException exception){
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
 }
