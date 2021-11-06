@@ -394,4 +394,12 @@ public class CompanyDao {
             new BaseException(FAILED_DELETE_RESUME_LIKE);
         }
     }
+
+    public void createOffer(Long companyId, Long userId) {
+        String query = "insert into Job_Offer (company_idx, user_idx) VALUES (?,?)";
+        Object[] params = new Object[]{companyId, userId};
+        if(this.jdbcTemplate.update(query, params)==0) {
+            new BaseException(FAILED_CREATE_COMPANY_OFFER);
+        }
+    }
 }

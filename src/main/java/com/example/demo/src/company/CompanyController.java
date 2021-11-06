@@ -143,7 +143,7 @@ public class CompanyController {
 
     /**
      * 기업 이력서 원해요 삭제 API
-     * [POST] /app/companies/{companyId}/resumes/{resumeId}
+     * [DELETE] /app/companies/{companyId}/resumes/{resumeId}
      * @return BaseResponse<String>
      */
     @DeleteMapping("/{companyId}/resumes/{resumeId}")
@@ -151,6 +151,20 @@ public class CompanyController {
                                                  @PathVariable Long resumeId) {
 
         companyService.deleteResumeLike(companyId, resumeId);
+        String result = "";
+        return new BaseResponse<>(result);
+    }
+
+    /**
+     * 기업 입사 제안 API
+     * [POST] /app/companies/{companyId}/resumes/offer/{userId}
+     * @return BaseResponse<String>
+     */
+    @PostMapping("/{companyId}/resumes/offer/{userId}")
+    public BaseResponse<String> createOffer(@PathVariable Long companyId,
+                                            @PathVariable Long userId) {
+
+        companyService.createOffer(companyId, userId);
         String result = "";
         return new BaseResponse<>(result);
     }
