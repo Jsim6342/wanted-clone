@@ -2,6 +2,7 @@ package com.example.demo.src.employment;
 
 import com.example.demo.src.employment.model.GetEmploymentPageRes;
 import com.example.demo.src.employment.model.GetEmploymentRes;
+import com.example.demo.src.employment.model.PostEmploymentLikedReq;
 import com.example.demo.src.employment.model.PostEmploymentReq;
 import com.example.demo.src.user.model.GetUserRes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,17 @@ public class EmploymentDao {
         String lastInsertIdQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,Long.class);
     }
+
+    public Long employmentLiked(PostEmploymentLikedReq likedReq, Long userIdxByJwt){
+        String employmentLikedQuery = "insert into Emp_Like (user_idx, employment_idx) values(?,?)";
+        Object[] employmentLikeParams = new Object[]{userIdxByJwt, likedReq.getEmploymentIdx()};
+        this.jdbcTemplate.update(employmentLikedQuery, employmentLikeParams);
+
+        String lastInsertIdQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdQuery,Long.class);
+    }
+
+
 
     public GetEmploymentRes getEmploymentByEmploymentIdx(Long employmentIdx){
         String getEmploymentByEmploymentIdxQuery = "select * from Employment where employment_idx = ?";
