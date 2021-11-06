@@ -1,7 +1,6 @@
 package com.example.demo.src.employment;
 
 import com.example.demo.src.employment.model.*;
-import com.example.demo.src.user.model.GetUserRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,10 +19,11 @@ public class EmploymentDao {
     }
 
     public Long createEmployment(PostEmploymentReq postEmploymentReq){
-        String createEmploymentQuery = "insert into Employment (company_idx, emp_title, company_name, company_location, rec_reward, vol_reward, emp_contents, emp_deadline, work_location) values(?,?,?,?,?,?,?,?,?)";
+        String createEmploymentQuery = "insert into Employment (company_idx, emp_title, job_group ,company_name, company_location, rec_reward, vol_reward, emp_contents, emp_deadline, work_location) values(?,?,?,?,?,?,?,?,?,?)";
         Object[] createEmploymentParams = new Object[]{
                 postEmploymentReq.getCompanyIdx(),
                 postEmploymentReq.getEmpTitle(),
+                postEmploymentReq.getJobGroup(),
                 postEmploymentReq.getCompanyName(),
                 postEmploymentReq.getCompanyLocation(),
                 postEmploymentReq.getRecReward(),
@@ -57,19 +57,19 @@ public class EmploymentDao {
 
 
 
-    public GetEmploymentRes getEmploymentByEmploymentIdx(Long employmentIdx){
-        String getEmploymentByEmploymentIdxQuery = "select * from Employment where employment_idx = ?";
-        Long getEmploymentByEmploymentIdxParams = employmentIdx;
-        return this.jdbcTemplate.queryForObject(getEmploymentByEmploymentIdxQuery,
+    public GetEmploymentDTO getEmploymentByEmploymentIdx(Long employmentIdx){
+        String getEmploymentByEmploymentIdxQuery1 = "select * from Employment where employment_idx = ?";
+        Long getEmploymentByEmploymentIdxParams1 = employmentIdx;
+        GetEmploymentRes getEmploymentRes = this.jdbcTemplate.queryForObject(getEmploymentByEmploymentIdxQuery1,
                 (rs, rowNum) -> new GetEmploymentRes(
                         rs.getLong("employment_idx"),
                         rs.getLong("company_idx"),
                         rs.getString("emp_title"),
+                        rs.getString("job_group"),
                         rs.getString("company_name"),
                         rs.getString("company_location"),
                         rs.getLong("rec_reward"),
                         rs.getLong("vol_reward"),
-                        rs.getLong("emp_liked"),
                         rs.getLong("career"),
                         rs.getString("emp_contents"),
                         rs.getString("emp_deadline"),
@@ -77,7 +77,32 @@ public class EmploymentDao {
                         rs.getDate("created"),
                         rs.getDate("updated"),
                         rs.getString("status")),
-                getEmploymentByEmploymentIdxParams);
+                getEmploymentByEmploymentIdxParams1);
+
+        String getEmploymentByEmploymentIdxQuery2 = "select company_img_1\n" +
+                "from Employment inner join Company on Employment.company_idx = Company.company_idx\n" +
+                "inner join Company_Img on Company.company_idx = Company_Img.company_idx\n" +
+                "where Employment.employment_idx = ?";
+        Long getEmploymentByEmploymentIdxParams2 = employmentIdx;
+        String imgUrl = this.jdbcTemplate.queryForObject(getEmploymentByEmploymentIdxQuery2,
+                (rs, rowNum) -> new String(
+                        rs.getString("company_img_1")),
+                getEmploymentByEmploymentIdxParams2);
+
+        String getEmploymentByEmploymentIdxQuery3 = "select count(emp_like_idx) as '좋아요 개수'\n" +
+                "from Emp_Like inner join Employment on Emp_Like.employment_idx = Employment.employment_idx\n" +
+                "where Emp_Like.employment_idx = ?\n" +
+                "group by Emp_Like.employment_idx";
+        Long getEmploymentByEmploymentIdxParams3 = employmentIdx;
+        Long liked = this.jdbcTemplate.queryForObject(getEmploymentByEmploymentIdxQuery3,
+                (rs, rowNum) -> new Long(
+                        rs.getLong("좋아요 개수")),
+                getEmploymentByEmploymentIdxParams3);
+
+
+        GetEmploymentDTO getEmploymentDTO = new GetEmploymentDTO(getEmploymentRes, imgUrl, liked);
+
+                return getEmploymentDTO;
     }
 
     public List<GetEmploymentPageRes> getEmploymentPage(String tag, String location, Long year){

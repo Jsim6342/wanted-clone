@@ -2,11 +2,8 @@ package com.example.demo.src.employment;
 
 
 import com.example.demo.config.exception.BaseException;
-import com.example.demo.config.response.BaseResponse;
-import com.example.demo.config.response.BaseResponseStatus;
 import com.example.demo.src.employment.model.GetEmploymentPageRes;
-import com.example.demo.src.employment.model.GetEmploymentRes;
-import com.example.demo.src.user.model.GetUserRes;
+import com.example.demo.src.employment.model.GetEmploymentDTO;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,10 +32,10 @@ public class EmploymentProvider {
         this.jwtService = jwtService;
     }
 
-    public GetEmploymentRes getEmploymentByEmploymentIdx(Long employmentIdx) throws BaseException{
+    public GetEmploymentDTO getEmploymentByEmploymentIdx(Long employmentIdx) throws BaseException{
         try{
-            GetEmploymentRes getEmploymentRes = employmentDao.getEmploymentByEmploymentIdx(employmentIdx);
-            return getEmploymentRes;
+            GetEmploymentDTO getEmploymentDTO = employmentDao.getEmploymentByEmploymentIdx(employmentIdx);
+            return getEmploymentDTO;
         }catch (EmptyResultDataAccessException emptyException){
             throw emptyException;
         }

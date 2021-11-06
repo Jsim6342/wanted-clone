@@ -88,10 +88,10 @@ public class EmploymentController {
      */
     @ResponseBody
     @GetMapping("{employmentIdx}")
-    public BaseResponse<GetEmploymentRes> getEmploymentByEmploymentIdx(@PathVariable("employmentIdx") Long employmentIdx){
+    public BaseResponse<GetEmploymentDTO> getEmploymentByEmploymentIdx(@PathVariable("employmentIdx") Long employmentIdx){
         try{
-            GetEmploymentRes getEmploymentRes = employmentProvider.getEmploymentByEmploymentIdx(employmentIdx);
-            return new BaseResponse<>(getEmploymentRes);
+            GetEmploymentDTO getEmploymentDTO = employmentProvider.getEmploymentByEmploymentIdx(employmentIdx);
+            return new BaseResponse<>(getEmploymentDTO);
         } catch (EmptyResultDataAccessException emptyException) {
             return new BaseResponse<>(RESULT_ROWS_EMPTY);
         } catch (BaseException exception){
