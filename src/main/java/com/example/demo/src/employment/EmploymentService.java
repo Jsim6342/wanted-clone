@@ -31,9 +31,7 @@ public class EmploymentService {
             Long employmentIdx = employmentDao.createEmployment(postEmploymentReq);
             return new PostEmploymentRes(employmentIdx);
         }catch (Exception exception){
-            System.out.println(exception);
-            throw exception;
-//            throw new BaseException(DATABASE_ERROR);
+            throw new BaseException(DATABASE_ERROR);
         }
     }
 }

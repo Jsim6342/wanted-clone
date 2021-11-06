@@ -4,6 +4,7 @@ package com.example.demo.src.employment;
 import com.example.demo.config.exception.BaseException;
 import com.example.demo.config.response.BaseResponse;
 import com.example.demo.config.response.BaseResponseStatus;
+import com.example.demo.src.employment.model.GetEmploymentPageRes;
 import com.example.demo.src.employment.model.GetEmploymentRes;
 import com.example.demo.src.user.model.GetUserRes;
 import com.example.demo.utils.JwtService;
@@ -12,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 import static com.example.demo.config.response.BaseResponseStatus.*;
 
 
@@ -39,6 +43,15 @@ public class EmploymentProvider {
             throw emptyException;
         }
         catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<GetEmploymentPageRes> getEmploymentPage(String tag, String location, Long year) throws BaseException{
+        try{
+            List<GetEmploymentPageRes> getEmploymentPageRes = employmentDao.getEmploymentPage(tag, location, year);
+            return getEmploymentPageRes;
+        } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
     }
