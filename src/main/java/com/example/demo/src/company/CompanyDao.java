@@ -11,8 +11,7 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.demo.config.response.BaseResponseStatus.FAILED_CREATE_RESUME_LIKE;
-import static com.example.demo.config.response.BaseResponseStatus.NONEXISTENT_RESUME;
+import static com.example.demo.config.response.BaseResponseStatus.*;
 
 @Repository
 public class CompanyDao {
@@ -385,6 +384,14 @@ public class CompanyDao {
         Object[] params = new Object[]{companyId, resumeId};
         if(this.jdbcTemplate.update(query, params)==0) {
             new BaseException(FAILED_CREATE_RESUME_LIKE);
+        }
+    }
+
+    public void deleteResumeLike(Long companyId, Long resumeId) {
+        String query = "delete from Resume_Want where company_idx = ? and resume_idx = ?";
+        Object[] params = new Object[]{companyId, resumeId};
+        if(this.jdbcTemplate.update(query, params)==0) {
+            new BaseException(FAILED_DELETE_RESUME_LIKE);
         }
     }
 }
