@@ -37,18 +37,18 @@ public class EmploymentDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,Long.class);
     }
 
-    public Long employmentLiked(PostEmploymentLikedReq likedReq, Long userIdxByJwt){
+    public Long employmentLiked(Long employmentIdx, Long userIdxByJwt){
         String employmentLikedQuery = "insert into Emp_Like (user_idx, employment_idx) values(?,?)";
-        Object[] employmentLikeParams = new Object[]{userIdxByJwt, likedReq.getEmploymentIdx()};
+        Object[] employmentLikeParams = new Object[]{userIdxByJwt, employmentIdx};
         this.jdbcTemplate.update(employmentLikedQuery, employmentLikeParams);
 
         String lastInsertIdQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,Long.class);
     }
 
-    public Long employmentBookmark(PostEmploymentBookmarkReq bookmarkReq, Long userIdxByJwt){
+    public Long employmentBookmark(Long employmentIdx, Long userIdxByJwt){
         String employmentBookmarkQuery = "insert into Emp_Bookmark (user_idx, employment_idx) values(?,?)";
-        Object[] employmentBookmarkParams = new Object[]{userIdxByJwt, bookmarkReq.getEmploymentIdx()};
+        Object[] employmentBookmarkParams = new Object[]{userIdxByJwt, employmentIdx};
         this.jdbcTemplate.update(employmentBookmarkQuery, employmentBookmarkParams);
 
         String lastInsertIdQuery = "select last_insert_id()";

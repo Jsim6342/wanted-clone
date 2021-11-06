@@ -132,10 +132,10 @@ public class EmploymentController {
      * [POST]
      */
     @ResponseBody
-    @PostMapping("/liked")
-    public BaseResponse<PostEmploymentLikedRes> employmentLiked(@RequestBody PostEmploymentLikedReq likedReq){
+    @PostMapping("/{employmentId}/liked")
+    public BaseResponse<PostEmploymentLikedRes> employmentLiked(@PathVariable("employmentId") Long employmentIdx){
         try{
-            PostEmploymentLikedRes likedRes = employmentService.employmentLiked(likedReq);
+            PostEmploymentLikedRes likedRes = employmentService.employmentLiked(employmentIdx);
             return new BaseResponse<>(likedRes);
         }catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -147,10 +147,10 @@ public class EmploymentController {
      * [POST]
      */
     @ResponseBody
-    @PostMapping("/bookmark")
-    public BaseResponse<PostEmploymentBookmarkRes> employmentBookmark(@RequestBody PostEmploymentBookmarkReq bookmarkReq){
+    @PostMapping("/{employmentId}/bookmark")
+    public BaseResponse<PostEmploymentBookmarkRes> employmentBookmark(@PathVariable("employmentId") Long employmentIdx){
         try{
-            PostEmploymentBookmarkRes bookmarkRes = employmentService.employmentBookmark(bookmarkReq);
+            PostEmploymentBookmarkRes bookmarkRes = employmentService.employmentBookmark(employmentIdx);
             return new BaseResponse<>(bookmarkRes);
         }catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
