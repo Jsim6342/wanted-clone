@@ -13,6 +13,7 @@ import lombok.Setter;
 public class PostEmploymentReq {
     private Long companyIdx;
     private String empTitle;
+    private String jobGroup;
     private String companyName;
     private String companyLocation;
     private Long recReward;
