@@ -34,10 +34,10 @@ public class EmploymentService {
         }
     }
 
-    public PostEmploymentLikedRes employmentLiked(PostEmploymentLikedReq likedReq) throws BaseException{
+    public PostEmploymentLikedRes employmentLiked(Long employmentIdx) throws BaseException{
         try{
             Long userIdxByJwt = jwtService.getUserIdx();
-            Long employmentLikedIdx = employmentDao.employmentLiked(likedReq, userIdxByJwt);
+            Long employmentLikedIdx = employmentDao.employmentLiked(employmentIdx, userIdxByJwt);
             return new PostEmploymentLikedRes(employmentLikedIdx);
 
         } catch (Exception exception){
@@ -45,10 +45,10 @@ public class EmploymentService {
         }
     }
 
-    public PostEmploymentBookmarkRes employmentBookmark(PostEmploymentBookmarkReq bookmarkReq) throws BaseException{
+    public PostEmploymentBookmarkRes employmentBookmark(Long employmentIdx) throws BaseException{
         try{
             Long userIdxByJwt = jwtService.getUserIdx();
-            Long empBookmarkIdx = employmentDao.employmentBookmark(bookmarkReq, userIdxByJwt);
+            Long empBookmarkIdx = employmentDao.employmentBookmark(employmentIdx, userIdxByJwt);
             return new PostEmploymentBookmarkRes(empBookmarkIdx);
 
         } catch (Exception exception){
