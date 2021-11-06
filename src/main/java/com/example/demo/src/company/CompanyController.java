@@ -103,15 +103,27 @@ public class CompanyController {
     }
 
     /**
-     * 기업-회원 이력서 조회 API
+     * 기업-회원 이력서 리스트 조회 API
      * [GET] /app/companies/{companyId}/resumes
-     * @return BaseResponse<>
+     * @return BaseResponse<List<GetResumeDTO.ResponseDTO>>
      */
     @GetMapping("/{companyId}/resumes")
-    public BaseResponse<List<GetResumeDTO.ResponseDTO>> getResumes(@PathVariable Long companyId) {
+    public BaseResponse<List<GetResumeListDTO.ResponseDTO>> getResumes(@PathVariable Long companyId) {
 
-        Long userId = 6L; // 더미 데이터
-        List<GetResumeDTO.ResponseDTO> result = companyProvider.getResumes(userId);
+        List<GetResumeListDTO.ResponseDTO> result = companyProvider.getResumes();
+        return new BaseResponse<>(result);
+    }
+
+    /**
+     * 기업-회원 이력서 상세 조회 API
+     * [GET] /app/companies/{companyId}/resumes/{resumeId}
+     * @return BaseResponse<GetResumeDTO.ResponseDTO>
+     */
+    @GetMapping("/{companyId}/resumes/{resumeId}")
+    public BaseResponse<GetResumeDTO.ResponseDTO> getResume(@PathVariable Long companyId,
+                                                            @PathVariable Long resumeId) {
+
+        GetResumeDTO.ResponseDTO result = companyProvider.getResume(resumeId);
         return new BaseResponse<>(result);
     }
 

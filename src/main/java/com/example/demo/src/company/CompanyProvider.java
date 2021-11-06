@@ -30,7 +30,11 @@ public class CompanyProvider {
         return companyDao.getApplication(applicationId);
     }
 
-    public List<GetResumeDTO.ResponseDTO> getResumes(Long userId) {
-        return companyDao.getResumes(userId);
+    public List<GetResumeListDTO.ResponseDTO> getResumes() {
+        return companyDao.getResumes();
+    }
+
+    public GetResumeDTO.ResponseDTO getResume(Long resumeId) {
+        return companyDao.getResume(resumeId);
     }
 }
