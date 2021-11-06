@@ -1,6 +1,8 @@
 package com.example.demo.src.employment;
 
 import com.example.demo.config.exception.BaseException;
+import com.example.demo.src.employment.model.PostEmploymentLikedReq;
+import com.example.demo.src.employment.model.PostEmploymentLikedRes;
 import com.example.demo.src.employment.model.PostEmploymentReq;
 import com.example.demo.src.employment.model.PostEmploymentRes;
 import com.example.demo.utils.JwtService;
@@ -31,6 +33,17 @@ public class EmploymentService {
             Long employmentIdx = employmentDao.createEmployment(postEmploymentReq);
             return new PostEmploymentRes(employmentIdx);
         }catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public PostEmploymentLikedRes employmentLiked(PostEmploymentLikedReq likedReq) throws BaseException{
+        try{
+            Long userIdxByJwt = jwtService.getUserIdx();
+            Long employmentLikedIdx = employmentDao.employmentLiked(likedReq, userIdxByJwt);
+            return new PostEmploymentLikedRes(employmentLikedIdx);
+
+        } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
     }

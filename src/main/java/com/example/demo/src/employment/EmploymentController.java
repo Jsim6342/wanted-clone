@@ -3,10 +3,7 @@ package com.example.demo.src.employment;
 
 import com.example.demo.config.exception.BaseException;
 import com.example.demo.config.response.BaseResponse;
-import com.example.demo.src.employment.model.GetEmploymentPageRes;
-import com.example.demo.src.employment.model.GetEmploymentRes;
-import com.example.demo.src.employment.model.PostEmploymentReq;
-import com.example.demo.src.employment.model.PostEmploymentRes;
+import com.example.demo.src.employment.model.*;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -130,4 +127,18 @@ public class EmploymentController {
         }
     }
 
+    /**
+     * 채용공고 좋아요 API
+     * [GET]
+     */
+    @ResponseBody
+    @PostMapping("/liked")
+    public BaseResponse<PostEmploymentLikedRes> employmentLiked(@RequestBody PostEmploymentLikedReq likedReq){
+        try{
+            PostEmploymentLikedRes likedRes = employmentService.employmentLiked(likedReq);
+            return new BaseResponse<>(likedRes);
+        }catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }
