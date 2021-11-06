@@ -127,4 +127,17 @@ public class CompanyController {
         return new BaseResponse<>(result);
     }
 
+    /**
+     * 기업 이력서 원해요 등록 API
+     * [POST] /app/companies/{companyId}/resumes/{resumeId}
+     * @return BaseResponse<String>
+     */
+    @PostMapping("/{companyId}/resumes/{resumeId}")
+    public BaseResponse<String> createResumeLike(@PathVariable Long companyId,
+                                                 @PathVariable Long resumeId) {
+
+        companyService.createResumeLike(companyId, resumeId);
+        String result = "";
+        return new BaseResponse<>(result);
+    }
 }
