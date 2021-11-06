@@ -74,7 +74,8 @@ public enum BaseResponseStatus {
 
     // Company
     FAILED_CREATE_RESUME_LIKE(false, 4100, "이력서 좋아요가 등록되지 않았습니다."),
-    FAILED_DELETE_RESUME_LIKE(false, 4100, "이력서 좋아요가 취소되지 않았습니다."),
+    FAILED_DELETE_RESUME_LIKE(false, 4101, "이력서 좋아요가 취소되지 않았습니다."),
+    FAILED_CREATE_COMPANY_OFFER(false, 4102, "입사 제안이 등록되지 않았습니다."),
 
 
     /**
