@@ -63,7 +63,7 @@ public class UserController {
      * [POST]
      */
     @ResponseBody
-    @PostMapping("/logIn")
+    @PostMapping("/login")
     public BaseResponse<PostLoginRes> logIn(@RequestBody PostLoginReq postLoginReq){
         // 이메일 입력 안했을 때 validation
         if(postLoginReq.getUserEmail().equals("")){

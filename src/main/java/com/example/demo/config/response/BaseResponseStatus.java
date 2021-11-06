@@ -21,6 +21,7 @@ public enum BaseResponseStatus {
     EMPTY_JWT(false, 2001, "JWT를 입력해주세요."),
     INVALID_JWT(false, 2002, "유효하지 않은 JWT입니다."),
     INVALID_USER_JWT(false,2003,"권한이 없는 유저의 접근입니다."),
+    JWT_ERROR(false, 2004, "JWT 관련 에러입니다."),
 
     // users
     USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요."),
@@ -41,6 +42,9 @@ public enum BaseResponseStatus {
     POST_EMPLOYMENT_EMPTY_CONTENTS(false, 2105, "채용공고 본문을 입력하세요."),
     POST_EMPLOYMENT_EMPTY_DEADLINE(false, 2106, "채용공고 마감일을 입력하세요."),
     POST_EMPLOYMENT_EMPTY_WORK_LOCATION(false, 2107, "근무지 위치를 입력하세요."),
+
+    // profile
+    NONEXISTENT_USER(false, 2200, "존재하지 않는 회원입니다."),
 
 
 
