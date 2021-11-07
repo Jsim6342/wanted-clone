@@ -2,12 +2,15 @@ package com.example.demo.src.profile;
 
 import com.example.demo.config.exception.BaseException;
 import com.example.demo.config.response.BaseResponse;
+import com.example.demo.src.profile.model.ApplicationDTO;
 import com.example.demo.src.profile.model.GetProfileDTO;
 import com.example.demo.src.profile.model.MyWantedDTO;
 import com.example.demo.src.profile.model.SeekStatus;
 import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.example.demo.config.response.BaseResponseStatus.JWT_ERROR;
 
@@ -97,6 +100,26 @@ public class ProfileController {
         profileService.modifyBasicResume(userId, resumeId);
 
         String result = "";
+        return new BaseResponse<>(result);
+    }
+
+    /**
+     * 작성중인 지원 현황 페이지 API
+     * [GET] /app/users/profile/applications/write
+     * @return BaseResponse<List<ApplicationDTO.ResponseDTO>>
+     */
+    @GetMapping("/profile/applications/write")
+    public BaseResponse<List<ApplicationDTO.ResponseDTO>> getApplicationWriting() {
+
+        Long userId = 0L;
+        try{
+            userId = jwtService.getUserIdx();
+        }catch (BaseException e) {
+            new BaseException(JWT_ERROR);
+        }
+
+        List<ApplicationDTO.ResponseDTO> result = profileProvider.getApplicationWriting(userId);
+
         return new BaseResponse<>(result);
     }
 
