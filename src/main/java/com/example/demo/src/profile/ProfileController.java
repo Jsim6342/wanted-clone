@@ -4,11 +4,10 @@ import com.example.demo.config.exception.BaseException;
 import com.example.demo.config.response.BaseResponse;
 import com.example.demo.src.profile.model.GetProfileDTO;
 import com.example.demo.src.profile.model.MyWantedDTO;
+import com.example.demo.src.profile.model.SeekStatus;
 import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.example.demo.config.response.BaseResponseStatus.JWT_ERROR;
 
@@ -18,6 +17,7 @@ import static com.example.demo.config.response.BaseResponseStatus.JWT_ERROR;
 public class ProfileController {
 
     private final ProfileProvider profileProvider;
+    private final ProfileService profileService;
     private final JwtService jwtService;
 
     /**
@@ -55,6 +55,27 @@ public class ProfileController {
         }
 
         GetProfileDTO.ResponseDTO result = profileProvider.getProfile(userId);
+        return new BaseResponse<>(result);
+    }
+
+    /**
+     * 유저 프로필 구직여부 설정 API
+     * [PATCH] /app/users/profile/seek-status
+     * @return BaseResponse<String>
+     */
+    @PatchMapping("/profile/seek-status")
+    public BaseResponse<String> modifySeekStatus(@RequestBody SeekStatus seekStatus) {
+
+        Long userId = 0L;
+        try{
+            userId = jwtService.getUserIdx();
+        }catch (BaseException e) {
+            new BaseException(JWT_ERROR);
+        }
+
+        profileService.modifySeekStatus(userId, seekStatus);
+
+        String result = "";
         return new BaseResponse<>(result);
     }
 

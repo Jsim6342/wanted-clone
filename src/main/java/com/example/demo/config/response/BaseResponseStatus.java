@@ -81,6 +81,9 @@ public enum BaseResponseStatus {
     FAILED_DELETE_RESUME_LIKE(false, 4101, "이력서 좋아요가 취소되지 않았습니다."),
     FAILED_CREATE_COMPANY_OFFER(false, 4102, "입사 제안이 등록되지 않았습니다."),
 
+    // profile
+    FAILED_PATCH_SEEK_STATUS(false, 4200, "구직 여부 설정이 변경되지 않았습니다."),
+
 
     /**
      * 5000 : Advisor에 등록되지 않은 오류

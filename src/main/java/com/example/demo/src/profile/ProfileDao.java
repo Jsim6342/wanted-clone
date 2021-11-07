@@ -4,6 +4,7 @@ import com.example.demo.config.exception.BaseException;
 import com.example.demo.src.company.model.GetResumeDTO;
 import com.example.demo.src.profile.model.GetProfileDTO;
 import com.example.demo.src.profile.model.MyWantedDTO;
+import com.example.demo.src.profile.model.SeekStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,7 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.demo.config.response.BaseResponseStatus.FAILED_PATCH_SEEK_STATUS;
 import static com.example.demo.config.response.BaseResponseStatus.NONEXISTENT_USER;
 
 @Repository
@@ -252,5 +254,13 @@ public class ProfileDao {
                 .build();
 
 
+    }
+
+    public void modifySeekStatus(Long userId, SeekStatus seekStatus) {
+        String sql = "update User set seek_status = ? where user_idx = ?";
+        Object[] params = new Object[]{seekStatus.getSeekStatus(), userId};
+        if(this.jdbcTemplate.update(sql, params)==0) {
+            new BaseException(FAILED_PATCH_SEEK_STATUS);
+        }
     }
 }
