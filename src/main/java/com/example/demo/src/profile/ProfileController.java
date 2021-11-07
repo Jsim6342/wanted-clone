@@ -123,4 +123,24 @@ public class ProfileController {
         return new BaseResponse<>(result);
     }
 
+    /**
+     * 지원 현황 페이지 API
+     * [GET] /app/users/profile/applications
+     * @return BaseResponse<List<ApplicationDTO.ResponseDTO>>
+     */
+    @GetMapping("/profile/applications")
+    public BaseResponse<List<ApplicationDTO.ResponseDTO>> getApplications() {
+
+        Long userId = 0L;
+        try{
+            userId = jwtService.getUserIdx();
+        }catch (BaseException e) {
+            new BaseException(JWT_ERROR);
+        }
+
+        List<ApplicationDTO.ResponseDTO> result = profileProvider.getApplicatios(userId);
+
+        return new BaseResponse<>(result);
+    }
+
 }

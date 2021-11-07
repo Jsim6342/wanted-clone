@@ -25,4 +25,8 @@ public class ProfileProvider {
     public List<ApplicationDTO.ResponseDTO> getApplicationWriting(Long userId) {
         return profileDao.getApplicationWriting(userId);
     }
+
+    public List<ApplicationDTO.ResponseDTO> getApplicatios(Long userId) {
+        return profileDao.getApplications(userId);
+    }
 }
