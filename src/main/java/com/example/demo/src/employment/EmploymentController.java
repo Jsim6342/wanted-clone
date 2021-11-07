@@ -132,12 +132,27 @@ public class EmploymentController {
      * [POST]
      */
     @ResponseBody
-    @PostMapping("/{employmentId}/liked")
+    @PostMapping("/{employmentId}/likes")
     public BaseResponse<PostEmploymentLikedRes> employmentLiked(@PathVariable("employmentId") Long employmentIdx){
         try{
             PostEmploymentLikedRes likedRes = employmentService.employmentLiked(employmentIdx);
             return new BaseResponse<>(likedRes);
         }catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 채용공고 좋아요 삭제 API
+     * [POST]
+     */
+    @ResponseBody
+    @DeleteMapping("/{employmentId}/likes")
+    public BaseResponse<PostEmploymentLikedDelRes> employmentLikedDelete(@PathVariable("employmentId") Long employmentIdx){
+        try{
+            PostEmploymentLikedDelRes likedDelRes = employmentService.employmentLikedDelete(employmentIdx);
+            return new BaseResponse<>(likedDelRes);
+        } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
     }

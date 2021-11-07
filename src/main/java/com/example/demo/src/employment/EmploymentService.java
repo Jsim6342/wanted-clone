@@ -45,6 +45,16 @@ public class EmploymentService {
         }
     }
 
+    public PostEmploymentLikedDelRes employmentLikedDelete(Long employmentIdx) throws BaseException{
+        try{
+            Long userIdxByJwt = jwtService.getUserIdx();
+            Long employmentLikedIdx = employmentDao.employmentLikedDelete(employmentIdx, userIdxByJwt);
+            return new PostEmploymentLikedDelRes(employmentLikedIdx);
+        }catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public PostEmploymentBookmarkRes employmentBookmark(Long employmentIdx) throws BaseException{
         try{
             Long userIdxByJwt = jwtService.getUserIdx();

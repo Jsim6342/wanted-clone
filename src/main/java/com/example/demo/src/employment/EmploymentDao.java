@@ -46,6 +46,15 @@ public class EmploymentDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,Long.class);
     }
 
+    public Long employmentLikedDelete(Long employmentIdx, Long userIdxByJwt){
+        String employmentLikedDeleteQuery = "delete from Emp_Like where employment_idx = ? and user_idx = ?";
+        Object[] employmentLikedDeleteParams = new Object[]{employmentIdx, userIdxByJwt};
+        this.jdbcTemplate.update(employmentLikedDeleteQuery, employmentLikedDeleteParams);
+
+        Long deletedEmploymentIdx = employmentIdx;
+        return deletedEmploymentIdx;
+    }
+
     public Long employmentBookmark(Long employmentIdx, Long userIdxByJwt){
         String employmentBookmarkQuery = "insert into Emp_Bookmark (user_idx, employment_idx) values(?,?)";
         Object[] employmentBookmarkParams = new Object[]{userIdxByJwt, employmentIdx};
