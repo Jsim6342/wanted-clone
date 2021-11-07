@@ -324,4 +324,55 @@ public class ProfileDao {
 
     }
 
+    public List<ApplicationDTO.ResponseDTO> getApplications(Long userId) {
+
+        // 채용 정보 SELECT
+        StringBuffer br = new StringBuffer();
+        br.append("select a.application_idx, e.employment_idx, e.company_name, e.emp_title, e.updated, a.application_status ");
+        br.append("from Application a ");
+        br.append("INNER JOIN Employment e on a.employment_idx = e.employment_idx ");
+        br.append("where a.user_idx = ? AND a.application_status != '작성중' ");
+
+
+        String employmentSql = br.toString();
+        Long employmentParams = userId;
+        List<ApplicationDTO.Employment> employmentList = this.jdbcTemplate.query(employmentSql,
+                (rs, rowNum) -> new ApplicationDTO.Employment(
+                        rs.getLong("application_idx"),
+                        rs.getLong("employment_idx"),
+                        rs.getString("company_name"),
+                        rs.getString("emp_title"),
+                        rs.getString("updated"),
+                        rs.getString("application_status")),
+                employmentParams);
+
+        // 회사 이미지 SELECT & build
+        List<ApplicationDTO.ResponseDTO> result = new ArrayList<>();
+        ApplicationDTO.ResponseDTO responseDTO = new ApplicationDTO.ResponseDTO();
+
+        if(!employmentList.isEmpty()) {
+            for (ApplicationDTO.Employment employment : employmentList) {
+
+                StringBuffer buffer = new StringBuffer();
+                buffer.append("select ci.company_img_1 from Employment e ");
+                buffer.append("INNER JOIN Company c on e.company_idx = c.company_idx ");
+                buffer.append("INNER JOIN Company_Img ci on c.company_idx = ci.company_idx ");
+                buffer.append("where e.employment_idx = ? ");
+
+
+                String imageSql = buffer.toString();
+                Long imageParams = userId;
+                List<String> imageList = this.jdbcTemplate.query(imageSql,
+                        (rs, rowNum) -> rs.getString("company_img_1"),
+                        imageParams);
+
+                responseDTO.setImageUrl(imageList.isEmpty() ? "" : imageList.get(0));
+                responseDTO.setEmployment(employment);
+                result.add(responseDTO);
+
+            }
+        }
+
+        return result;
+    }
 }
