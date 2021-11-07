@@ -79,4 +79,25 @@ public class ProfileController {
         return new BaseResponse<>(result);
     }
 
+    /**
+     * 유저 기본 이력서 수정 API
+     * [PATCH] /app/users/profile/{resumeId}
+     * @return BaseResponse<String>
+     */
+    @PatchMapping("/profile/{resumeId}")
+    public BaseResponse<String> modifyBasicResume(@PathVariable Long resumeId) {
+
+        Long userId = 0L;
+        try{
+            userId = jwtService.getUserIdx();
+        }catch (BaseException e) {
+            new BaseException(JWT_ERROR);
+        }
+
+        profileService.modifyBasicResume(userId, resumeId);
+
+        String result = "";
+        return new BaseResponse<>(result);
+    }
+
 }

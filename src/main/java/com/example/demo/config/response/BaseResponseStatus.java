@@ -83,6 +83,7 @@ public enum BaseResponseStatus {
 
     // profile
     FAILED_PATCH_SEEK_STATUS(false, 4200, "구직 여부 설정이 변경되지 않았습니다."),
+    FAILED_PATCH_BASIC_RESUME(false, 4200, "기본 이력서 설정이 변경되지 않았습니다."),
 
 
     /**

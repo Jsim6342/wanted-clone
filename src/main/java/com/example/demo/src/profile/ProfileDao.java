@@ -13,8 +13,7 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.demo.config.response.BaseResponseStatus.FAILED_PATCH_SEEK_STATUS;
-import static com.example.demo.config.response.BaseResponseStatus.NONEXISTENT_USER;
+import static com.example.demo.config.response.BaseResponseStatus.*;
 
 @Repository
 public class ProfileDao {
@@ -261,6 +260,14 @@ public class ProfileDao {
         Object[] params = new Object[]{seekStatus.getSeekStatus(), userId};
         if(this.jdbcTemplate.update(sql, params)==0) {
             new BaseException(FAILED_PATCH_SEEK_STATUS);
+        }
+    }
+
+    public void modifyBasicResume(Long userId, Long resumeId) {
+        String sql = "update User set basic_resume_idx = ? where user_idx = ?";
+        Object[] params = new Object[]{resumeId, userId};
+        if(this.jdbcTemplate.update(sql, params)==0) {
+            new BaseException(FAILED_PATCH_BASIC_RESUME);
         }
     }
 }

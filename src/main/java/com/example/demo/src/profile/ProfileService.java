@@ -14,4 +14,7 @@ public class ProfileService {
         profileDao.modifySeekStatus(userId, seekStatus);
     }
 
+    public void modifyBasicResume(Long userId, Long resumeId) {
+        profileDao.modifyBasicResume(userId, resumeId);
+    }
 }
