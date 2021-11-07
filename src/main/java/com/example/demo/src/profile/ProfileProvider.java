@@ -36,16 +36,16 @@ public class ProfileProvider {
         List<OffersRes> result = new ArrayList<>();
 
         if(type.equals("matchup-all")) {
-            result = profileDao.getAllOffers();
+            result = profileDao.getAllOffers(userId);
         }
         if(type.equals("matchup-likes")) {
-            result = profileDao.getLikesOffers();
+            result = profileDao.getLikesOffers(userId);
         }
         if(type.equals("matchup-opens")) {
-            result = profileDao.getOpensOffers();
+            result = profileDao.getOpensOffers(userId);
         }
         if(type.equals("matchup-offers")) {
-            result = profileDao.getOffers();
+            result = profileDao.getOffers(userId);
         }
 
         return result;

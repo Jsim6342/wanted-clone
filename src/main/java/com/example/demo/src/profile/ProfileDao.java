@@ -1,10 +1,7 @@
 package com.example.demo.src.profile;
 
 import com.example.demo.config.exception.BaseException;
-import com.example.demo.src.profile.model.ApplicationDTO;
-import com.example.demo.src.profile.model.GetProfileDTO;
-import com.example.demo.src.profile.model.MyWantedDTO;
-import com.example.demo.src.profile.model.SeekStatus;
+import com.example.demo.src.profile.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -374,5 +371,96 @@ public class ProfileDao {
         }
 
         return result;
+    }
+
+    public List<OffersRes> getAllOffers(Long userId) {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("select w.resume_want_idx, c.company_idx, c.company_name, w.resume_want_status, w.updated from Resume_Want w ");
+        buffer.append("INNER JOIN Company c on w.company_idx = c.company_idx ");
+        buffer.append("INNER JOIN Resume r on w.resume_idx = r.resume_idx ");
+        buffer.append("where r.user_idx = ? ");
+        buffer.append("UNION ALL ");
+        buffer.append("select o.open_profile_idx, c.company_idx, c.company_name, o.open_profile_status, o.updated from Open_Profile o ");
+        buffer.append("INNER JOIN Company c on o.company_idx = c.company_idx ");
+        buffer.append("INNER JOIN Resume r on o.resume_idx = r.resume_idx ");
+        buffer.append("where r.user_idx = ? ");
+        buffer.append("UNION ALL ");
+        buffer.append("select j.job_offer_idx, c.company_idx, c.company_name, j.job_offer_status, j.updated from Job_Offer j ");
+        buffer.append("INNER JOIN Company c on j.company_idx = c.company_idx ");
+        buffer.append("where j.user_idx = ? ");
+
+
+        String offersSql = buffer.toString();
+        Long offersParam = userId;
+        return this.jdbcTemplate.query(offersSql,
+                (rs, rowNum) -> new OffersRes(
+                        rs.getLong("resume_want_idx"),
+                        rs.getLong("company_idx"),
+                        rs.getString("company_name"),
+                        rs.getString("resume_want_status"),
+                        rs.getString("updated")),
+                userId, userId, userId);
+
+
+
+
+    }
+
+    public List<OffersRes> getLikesOffers(Long userId) {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("select w.resume_want_idx, c.company_idx, c.company_name, w.resume_want_status, w.updated from Resume_Want w ");
+        buffer.append("INNER JOIN Company c on w.company_idx = c.company_idx ");
+        buffer.append("INNER JOIN Resume r on w.resume_idx = r.resume_idx ");
+        buffer.append("where r.user_idx = ? ");
+
+        String offersSql = buffer.toString();
+        Long offersParam = userId;
+        return this.jdbcTemplate.query(offersSql,
+                (rs, rowNum) -> new OffersRes(
+                        rs.getLong("resume_want_idx"),
+                        rs.getLong("company_idx"),
+                        rs.getString("company_name"),
+                        rs.getString("resume_want_status"),
+                        rs.getString("updated")),
+                offersParam);
+
+    }
+
+    public List<OffersRes> getOpensOffers(Long userId) {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("select o.open_profile_idx, c.company_idx, c.company_name, o.open_profile_status, o.updated from Open_Profile o ");
+        buffer.append("INNER JOIN Company c on o.company_idx = c.company_idx ");
+        buffer.append("INNER JOIN Resume r on o.resume_idx = r.resume_idx ");
+        buffer.append("where r.user_idx = ? ");
+
+        String offersSql = buffer.toString();
+        Long offersParam = userId;
+        return this.jdbcTemplate.query(offersSql,
+                (rs, rowNum) -> new OffersRes(
+                        rs.getLong("resume_want_idx"),
+                        rs.getLong("company_idx"),
+                        rs.getString("company_name"),
+                        rs.getString("resume_want_status"),
+                        rs.getString("updated")),
+                offersParam);
+    }
+
+    public List<OffersRes> getOffers(Long userId) {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("select j.job_offer_idx, c.company_idx, c.company_name, j.job_offer_status, j.updated from Job_Offer j ");
+        buffer.append("INNER JOIN Company c on j.company_idx = c.company_idx ");
+        buffer.append("where j.user_idx = ?; ");
+
+        String offersSql = buffer.toString();
+        Long offersParam = userId;
+        return this.jdbcTemplate.query(offersSql,
+                (rs, rowNum) -> new OffersRes(
+                        rs.getLong("resume_want_idx"),
+                        rs.getLong("company_idx"),
+                        rs.getString("company_name"),
+                        rs.getString("resume_want_status"),
+                        rs.getString("updated")),
+                offersParam);
+
     }
 }
