@@ -162,7 +162,7 @@ public class EmploymentController {
      * [POST]
      */
     @ResponseBody
-    @PostMapping("/{employmentId}/bookmark")
+    @PostMapping("/{employmentId}/bookmarks")
     public BaseResponse<PostEmploymentBookmarkRes> employmentBookmark(@PathVariable("employmentId") Long employmentIdx){
         try{
             PostEmploymentBookmarkRes bookmarkRes = employmentService.employmentBookmark(employmentIdx);
@@ -177,7 +177,7 @@ public class EmploymentController {
      * [DELETE]
      */
     @ResponseBody
-    @DeleteMapping("/{employmentId}/bookmark")
+    @DeleteMapping("/{employmentId}/bookmarks")
     public BaseResponse<PostEmploymentBookmarkDelRes> employmentBookmarkDelete(@PathVariable("employmentId") Long employmentIdx){
         try{
             PostEmploymentBookmarkDelRes bookmarkDelRes = employmentService.employmentBookmarkDelete(employmentIdx);
