@@ -2,6 +2,7 @@ package com.example.demo.src.profile;
 
 import com.example.demo.config.exception.BaseException;
 import com.example.demo.src.company.model.GetResumeDTO;
+import com.example.demo.src.profile.model.GetProfileDTO;
 import com.example.demo.src.profile.model.MyWantedDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -166,6 +167,90 @@ public class ProfileDao {
                 .likeEmploymentList(likeEmploymentList)
                 .bookmarkEmploymentList(bookmarkEmploymentList)
                 .build();
+
+    }
+
+    public GetProfileDTO.ResponseDTO getProfile(Long userId) {
+        // 유저 정보 SELECT
+        String userSql = "select user_name, user_email, user_phone_number, point, basic_resume_idx from User where user_idx = ?";
+        Long userParams = userId;
+        List<GetProfileDTO.User> user = this.jdbcTemplate.query(userSql,
+                (rs, rowNum) -> new GetProfileDTO.User(
+                        rs.getString("user_name"),
+                        rs.getString("user_email"),
+                        rs.getString("user_phone_number"),
+                        rs.getLong("point"),
+                        rs.getLong("basic_resume_idx")),
+                userParams);
+        if(user.isEmpty()) {
+            new BaseException(NONEXISTENT_USER);
+        }
+
+        // 기본 이력서 정보 SELECT
+        StringBuffer br = new StringBuffer();
+        br.append("select r.resume_idx, r.title, s.school_name, s.major, c.company_name, c.department_name, r.contents from Resume r ");
+        br.append("INNER join ( ");
+        br.append("select resume_idx, school_name, major from School where resume_idx = ? ");
+        br.append(") s ON r.resume_idx = s.resume_idx ");
+        br.append("INNER join ( ");
+        br.append("select resume_idx, company_name, department_name from Career where resume_idx = ? ");
+        br.append(") c ON r.resume_idx = c.resume_idx");
+
+
+        String resumeSql = br.toString();
+        Long resumeParams = user.get(0).getBasicResumeId();
+        List<GetProfileDTO.BasicResume> basicResume = this.jdbcTemplate.query(resumeSql,
+                (rs, rowNum) -> new GetProfileDTO.BasicResume(
+                        rs.getLong("resume_idx"),
+                        rs.getString("title"),
+                        rs.getString("school_name"),
+                        rs.getString("major"),
+                        rs.getString("company_name"),
+                        rs.getString("department_name"),
+                        rs.getString("contents")),
+                resumeParams, resumeParams);
+
+
+        // 전문분야 SELECT
+        String specializedSql = "select specialized_idx, field, job_group_1, job_group_2, job_group_3, career from Specialized where user_idx = ?";
+        Long specializedParams = userId;
+        List<GetProfileDTO.Specialized> specialized = this.jdbcTemplate.query(specializedSql,
+                (rs, rowNum) -> new GetProfileDTO.Specialized(
+                        rs.getLong("specialized_idx"),
+                        rs.getString("field"),
+                        rs.getString("job_group_1"),
+                        rs.getString("job_group_2"),
+                        rs.getString("job_group_3"),
+                        rs.getString("career")),
+                specializedParams);
+
+        List<String> skillList = new ArrayList<>();
+        if(!specialized.isEmpty()) {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append("SELECT s.skill_name FROM Skill_Spe_Map m ");
+            buffer.append("INNER JOIN Skill s ON s.skill_num = m.skill_num ");
+            buffer.append("WHERE m.specialized_idx = ?");
+
+            String skillSql = buffer.toString();
+            Long skillParams = specialized.get(0).getSpecialized_idx();
+            skillList = this.jdbcTemplate.query(skillSql,
+                    (rs, rowNum) -> new String(
+                            rs.getString("skill_name")),
+                    skillParams);
+        }
+
+        GetProfileDTO.SpecializedDTO specializedDTO = GetProfileDTO.SpecializedDTO.builder()
+                .specialized(specialized.isEmpty() ? new GetProfileDTO.Specialized() : specialized.get(0))
+                .skillList(skillList)
+                .build();
+
+        // build & return
+        return GetProfileDTO.ResponseDTO.builder()
+                .user(user.get(0))
+                .basicResume(basicResume.isEmpty() ? new GetProfileDTO.BasicResume() : basicResume.get(0))
+                .specializedDTO(specializedDTO)
+                .build();
+
 
     }
 }
