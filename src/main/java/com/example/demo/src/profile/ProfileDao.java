@@ -25,10 +25,11 @@ public class ProfileDao {
 
     public MyWantedDTO.ResponseDTO getMyWanted(Long userId) {
         // 유저 정보 SELECT
-        String userSql = "select user_email, user_phone_number, point from User where user_idx = ?";
+        String userSql = "select user_name, user_email, user_phone_number, point from User where user_idx = ?";
         Long userParams = userId;
         List<MyWantedDTO.User> userList = this.jdbcTemplate.query(userSql,
                 (rs, rowNum) -> new MyWantedDTO.User(
+                        rs.getString("user_name"),
                         rs.getString("user_email"),
                         rs.getString("user_phone_number"),
                         rs.getLong("point")),

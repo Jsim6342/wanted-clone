@@ -29,6 +29,7 @@ public class MyWantedDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class User {
+        private String userName;
         private String userEmail;
         private String userPhoneNumber;
         private Long point;
