@@ -64,6 +64,15 @@ public class EmploymentDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,Long.class);
     }
 
+    public Long employmentBookmarkDelete(Long employmentIdx, Long userIdxByJwt){
+        String employmentBookmarkDeleteQuery = "delete from Emp_Bookmark where employment_idx = ? and user_idx = ?";
+        Object[] employmentBookmarkDeleteParams = new Object[]{employmentIdx, userIdxByJwt};
+        this.jdbcTemplate.update(employmentBookmarkDeleteQuery, employmentBookmarkDeleteParams);
+
+        Long deletedEmploymentIdx = employmentIdx;
+        return deletedEmploymentIdx;
+    }
+
 
 
     public GetEmploymentDTO getEmploymentByEmploymentIdx(Long employmentIdx){

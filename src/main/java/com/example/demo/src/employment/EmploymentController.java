@@ -144,7 +144,7 @@ public class EmploymentController {
 
     /**
      * 채용공고 좋아요 삭제 API
-     * [POST]
+     * [DELETE]
      */
     @ResponseBody
     @DeleteMapping("/{employmentId}/likes")
@@ -167,6 +167,21 @@ public class EmploymentController {
         try{
             PostEmploymentBookmarkRes bookmarkRes = employmentService.employmentBookmark(employmentIdx);
             return new BaseResponse<>(bookmarkRes);
+        }catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 채용공고 북마크 삭제 API
+     * [DELETE]
+     */
+    @ResponseBody
+    @DeleteMapping("/{employmentId}/bookmark")
+    public BaseResponse<PostEmploymentBookmarkDelRes> employmentBookmarkDelete(@PathVariable("employmentId") Long employmentIdx){
+        try{
+            PostEmploymentBookmarkDelRes bookmarkDelRes = employmentService.employmentBookmarkDelete(employmentIdx);
+            return new BaseResponse<>(bookmarkDelRes);
         }catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
