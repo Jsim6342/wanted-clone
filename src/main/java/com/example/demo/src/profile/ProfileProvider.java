@@ -3,9 +3,11 @@ package com.example.demo.src.profile;
 import com.example.demo.src.profile.model.ApplicationDTO;
 import com.example.demo.src.profile.model.GetProfileDTO;
 import com.example.demo.src.profile.model.MyWantedDTO;
+import com.example.demo.src.profile.model.OffersRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,5 +30,24 @@ public class ProfileProvider {
 
     public List<ApplicationDTO.ResponseDTO> getApplicatios(Long userId) {
         return profileDao.getApplications(userId);
+    }
+
+    public List<OffersRes> getOffers(Long userId, String type) {
+        List<OffersRes> result = new ArrayList<>();
+
+        if(type.equals("matchup-all")) {
+            result = profileDao.getAllOffers();
+        }
+        if(type.equals("matchup-likes")) {
+            result = profileDao.getLikesOffers();
+        }
+        if(type.equals("matchup-opens")) {
+            result = profileDao.getOpensOffers();
+        }
+        if(type.equals("matchup-offers")) {
+            result = profileDao.getOffers();
+        }
+
+        return result;
     }
 }
