@@ -2,10 +2,7 @@ package com.example.demo.src.profile;
 
 import com.example.demo.config.exception.BaseException;
 import com.example.demo.config.response.BaseResponse;
-import com.example.demo.src.profile.model.ApplicationDTO;
-import com.example.demo.src.profile.model.GetProfileDTO;
-import com.example.demo.src.profile.model.MyWantedDTO;
-import com.example.demo.src.profile.model.SeekStatus;
+import com.example.demo.src.profile.model.*;
 import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -139,6 +136,26 @@ public class ProfileController {
         }
 
         List<ApplicationDTO.ResponseDTO> result = profileProvider.getApplicatios(userId);
+
+        return new BaseResponse<>(result);
+    }
+
+    /**
+     * 제안 받기 페이지 API
+     * [GET] /app/users/profile/suggestions?type=
+     * @return BaseResponse<List<OffersRes>>
+     */
+    @GetMapping("/profile/suggestions")
+    public BaseResponse<List<OffersRes>> getOffers(@RequestParam String type) {
+
+        Long userId = 0L;
+        try{
+            userId = jwtService.getUserIdx();
+        }catch (BaseException e) {
+            new BaseException(JWT_ERROR);
+        }
+
+        List<OffersRes> result = profileProvider.getOffers(userId, type);
 
         return new BaseResponse<>(result);
     }
