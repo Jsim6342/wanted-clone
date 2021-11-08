@@ -12,7 +12,6 @@ import java.util.List;
 public class CompanyProvider {
 
     private final CompanyDao companyDao;
-    private final JwtService jwtService;
 
     public GetCompanyDTO.ResponseDTO getCompany(Long companyId) {
         return companyDao.getCompany(companyId);
