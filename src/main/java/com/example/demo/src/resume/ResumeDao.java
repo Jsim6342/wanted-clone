@@ -90,7 +90,6 @@ public class ResumeDao {
                     keyHolder3);
         }
 
-
         String createResumePortfolioQuery = "insert into Portfolio_URL (resume_idx, portfolio_url_1, portfolio_url_2, portfolio_url_3) values(?,?,?,?)";
         KeyHolder keyHolder4 = new GeneratedKeyHolder();
         for (int i = 0; i < postResumeReq.getPortfoliosList().size(); i++) {
