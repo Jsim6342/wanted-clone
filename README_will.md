@@ -91,3 +91,9 @@ https://selective-tibia-ce2.notion.site/OT-47f8b5c932da434ea43c3f3272c45ac9
 - 제안 받기 페이지 - 100%
 - 더미 데이터 작업 - 20%
 
+
+### 2021-11-8
+
+- 더미 데이터 작업 - 70%
+- 메인페이지 API - 100%
+
