@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig host="3.37.197.29" id="13788ec0-7078-4fe9-9c06-122f3e363c26" keyPath="$PROJECT_DIR$/../../../dev/Rising_Camp.pem" port="22" nameFormat="DESCRIPTIVE" username="ubuntu" />
+    </configs>
+  </component>
+</project>

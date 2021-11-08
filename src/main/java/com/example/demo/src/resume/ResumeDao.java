@@ -2,17 +2,23 @@ package com.example.demo.src.resume;
 
 import com.example.demo.config.exception.BaseException;
 import com.example.demo.src.company.model.GetResumeDTO;
+import com.example.demo.src.resume.model.PostResumeReq;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.demo.config.response.BaseResponseStatus.NONEXISTENT_RESUME;
 
+@Slf4j
 @Repository
 public class ResumeDao {
 
@@ -23,7 +29,89 @@ public class ResumeDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public Long createResume(PostResumeReq postResumeReq, Long userIdx){
+        String createResumeQuery = "insert into Resume (user_idx, user_name, user_email, user_phone_number, contents) values(?,?,?,?,?)";
+        KeyHolder mainKeyHolder = new GeneratedKeyHolder();
+        this.jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(createResumeQuery, Statement.RETURN_GENERATED_KEYS);
+            ps.setLong(1, userIdx);
+            ps.setString(2, postResumeReq.getUserName());
+            ps.setString(3, postResumeReq.getUserEmail());
+            ps.setString(4, postResumeReq.getUserPhoneNumber());
+            ps.setString(5, postResumeReq.getContents());
+            return ps;},
+                mainKeyHolder);
+
+        String createResumeCareerQuery = "insert into Career (resume_idx, company_name, department_name, outcome_name, outcome_start, outcome_end, outcome_contents) values(?,?,?,?,?,?,?)";
+        KeyHolder keyHolder1 = new GeneratedKeyHolder();
+        for (int i = 0; i < postResumeReq.getCareerList().size(); i++) {
+            int finalI = i;
+            this.jdbcTemplate.update(connection -> {
+                        PreparedStatement ps = connection.prepareStatement(createResumeCareerQuery, Statement.RETURN_GENERATED_KEYS);
+                        ps.setLong(1, mainKeyHolder.getKey().longValue());
+                        ps.setString(2, postResumeReq.getCareerList().get(finalI).getCompanyName());
+                        ps.setString(3, postResumeReq.getCareerList().get(finalI).getDepartmentName());
+                        ps.setString(4, postResumeReq.getCareerList().get(finalI).getOutcomeName());
+                        ps.setString(5, postResumeReq.getCareerList().get(finalI).getOutcomeStart());
+                        ps.setString(6, postResumeReq.getCareerList().get(finalI).getOutcomeEnd());
+                        ps.setString(7, postResumeReq.getCareerList().get(finalI).getOutcomeContents());
+                        return ps;},
+                    keyHolder1);
+        }
+
+
+        String createResumeSchoolQuery = "insert into School (resume_idx, school_name, major, subject_contents, entranced, graduated, in_school) values(?,?,?,?,?,?,?)";
+        KeyHolder keyHolder2 = new GeneratedKeyHolder();
+        for (int i = 0; i < postResumeReq.getSchoolList().size(); i++) {
+            int finalI = i;
+            this.jdbcTemplate.update(connection -> {
+                        PreparedStatement ps = connection.prepareStatement(createResumeSchoolQuery, Statement.RETURN_GENERATED_KEYS);
+                        ps.setLong(1, mainKeyHolder.getKey().longValue());
+                        ps.setString(2, postResumeReq.getSchoolList().get(finalI).getSchoolName());
+                        ps.setString(3, postResumeReq.getSchoolList().get(finalI).getMajor());
+                        ps.setString(4, postResumeReq.getSchoolList().get(finalI).getSubjectContents());
+                        ps.setString(5, postResumeReq.getSchoolList().get(finalI).getEntranced());
+                        ps.setString(6, postResumeReq.getSchoolList().get(finalI).getGraduated());
+                        ps.setLong(7, postResumeReq.getSchoolList().get(finalI).getInSchool());
+                        return ps;},
+                    keyHolder2);
+        }
+
+        String createResumeForeignLanguageQuery = "insert into Foreign_Language (resume_idx, language, language_level) values(?,?,?)";
+        KeyHolder keyHolder3 = new GeneratedKeyHolder();
+        for (int i = 0; i < postResumeReq.getLanguageList().size(); i++) {
+            int finalI = i;
+            this.jdbcTemplate.update(connection -> {
+                        PreparedStatement ps = connection.prepareStatement(createResumeForeignLanguageQuery, Statement.RETURN_GENERATED_KEYS);
+                        ps.setLong(1, mainKeyHolder.getKey().longValue());
+                        ps.setString(2, postResumeReq.getLanguageList().get(finalI).getLanguage());
+                        ps.setString(3, postResumeReq.getLanguageList().get(finalI).getLanguageLevel());
+                        return ps;},
+                    keyHolder3);
+        }
+
+
+        String createResumePortfolioQuery = "insert into Portfolio_URL (resume_idx, portfolio_url_1, portfolio_url_2, portfolio_url_3) values(?,?,?,?)";
+        KeyHolder keyHolder4 = new GeneratedKeyHolder();
+        for (int i = 0; i < postResumeReq.getPortfoliosList().size(); i++) {
+            int finalI = i;
+            this.jdbcTemplate.update(connection -> {
+                        PreparedStatement ps = connection.prepareStatement(createResumePortfolioQuery, Statement.RETURN_GENERATED_KEYS);
+                        ps.setLong(1, mainKeyHolder.getKey().longValue());
+                        ps.setString(2, postResumeReq.getPortfoliosList().get(finalI).getPortfolioUrl1());
+                        ps.setString(3, postResumeReq.getPortfoliosList().get(finalI).getPortfolioUrl2());
+                        ps.setString(4, postResumeReq.getPortfoliosList().get(finalI).getPortfolioUrl3());
+                        return ps;},
+                    keyHolder4);
+        }
+
+        Long resumeIdx =  mainKeyHolder.getKey().longValue();
+        return resumeIdx;
+    }
+
+
     public GetResumeDTO.ResponseDTO getResume(Long resumeId) {
+
 
         // 이력서 SELECT
         String resumeSql = "select user_name, user_email, user_phone_number, contents from Resume where resume_idx = ?";
