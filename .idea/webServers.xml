@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b192a815-cb4c-4810-9795-fdb5be384b7e" name="Wanted_A" url="https://jminie-stark.shop">
+        <fileTransfer rootFolder="/var/www/Wanted_test_Server_Will_Stark" accessType="SFTP" host="3.37.197.29" port="22" sshConfigId="13788ec0-7078-4fe9-9c06-122f3e363c26" sshConfig="ubuntu@3.37.197.29:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
