@@ -1,7 +1,6 @@
 package com.example.demo.src.resume;
 
 import com.example.demo.config.exception.BaseException;
-import com.example.demo.src.resume.model.PostResumeHeaderReq;
 import com.example.demo.src.resume.model.PostResumeReq;
 import com.example.demo.src.resume.model.PostResumeRes;
 import com.example.demo.utils.JwtService;
