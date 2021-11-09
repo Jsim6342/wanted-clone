@@ -28,7 +28,7 @@ public class mainDTO {
         private String imageUrl;
         private String linkUrl;
         private String title;
-        private String sub_title;
+        private String subTitle;
     }
 
     @Data
