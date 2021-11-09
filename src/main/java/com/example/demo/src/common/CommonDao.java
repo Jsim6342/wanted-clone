@@ -47,7 +47,7 @@ public class CommonDao {
             br.append("(e.rec_reward + e.vol_reward) as reward from Employment e ");
             br.append("INNER JOIN Company c on e.company_idx = c.company_idx ");
             br.append("INNER JOIN Company_Img ci on c.company_idx = ci.company_idx ");
-            br.append("where e.job_group = ? order by e.employment_idx desc");
+            br.append("where e.job_group = ? order by e.employment_idx desc limit 4");
 
             String sql = br.toString();
             String param = fieldList.get(0);
@@ -72,7 +72,7 @@ public class CommonDao {
         br.append("(e.rec_reward + e.vol_reward) as reward from Employment e ");
         br.append("INNER JOIN Company c on e.company_idx = c.company_idx ");
         br.append("INNER JOIN Company_Img ci on c.company_idx = ci.company_idx ");
-        br.append("order by e.employment_idx desc");
+        br.append("order by e.employment_idx desc limit 4");
 
         String sql = br.toString();
         employmentList = this.jdbcTemplate.query(sql,
