@@ -1,7 +1,11 @@
 package com.example.demo.src.profile;
 
 import com.example.demo.config.exception.BaseException;
-import com.example.demo.src.profile.model.*;
+import com.example.demo.src.profile.model.req.SeekStatus;
+import com.example.demo.src.profile.model.res.ApplicationDTO;
+import com.example.demo.src.profile.model.res.GetProfileDTO;
+import com.example.demo.src.profile.model.res.MyWantedDTO;
+import com.example.demo.src.profile.model.res.OffersRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

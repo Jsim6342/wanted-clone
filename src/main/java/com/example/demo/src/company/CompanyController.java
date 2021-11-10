@@ -2,6 +2,9 @@ package com.example.demo.src.company;
 
 import com.example.demo.config.response.BaseResponse;
 import com.example.demo.src.company.model.*;
+import com.example.demo.src.company.model.req.PatchCompanyReq;
+import com.example.demo.src.company.model.req.PostCompanyReq;
+import com.example.demo.src.company.model.res.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -83,7 +86,7 @@ public class CompanyController {
      */
     @GetMapping("/{companyId}/applications/{applicationId}")
     public BaseResponse<GetApplicationsDTO.ResponseDTO> getApplication(@PathVariable Long companyId,
-                                                                 @PathVariable Long applicationId) {
+                                                                       @PathVariable Long applicationId) {
         GetApplicationsDTO.ResponseDTO result = companyProvider.getApplication(applicationId);
         return new BaseResponse<>(result);
     }

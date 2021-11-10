@@ -1,7 +1,7 @@
 package com.example.demo.src.company;
 
-import com.example.demo.src.company.model.PatchCompanyReq;
-import com.example.demo.src.company.model.PostCompanyReq;
+import com.example.demo.src.company.model.req.PatchCompanyReq;
+import com.example.demo.src.company.model.req.PostCompanyReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

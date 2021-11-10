@@ -1,6 +1,6 @@
 package com.example.demo.src.profile;
 
-import com.example.demo.src.profile.model.SeekStatus;
+import com.example.demo.src.profile.model.req.SeekStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

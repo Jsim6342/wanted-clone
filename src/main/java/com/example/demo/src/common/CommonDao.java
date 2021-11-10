@@ -1,7 +1,6 @@
 package com.example.demo.src.common;
 
 import com.example.demo.src.common.model.mainDTO;
-import com.example.demo.src.profile.model.MyWantedDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

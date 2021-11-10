@@ -2,6 +2,9 @@ package com.example.demo.src.company;
 
 import com.example.demo.config.exception.BaseException;
 import com.example.demo.src.company.model.*;
+import com.example.demo.src.company.model.req.PatchCompanyReq;
+import com.example.demo.src.company.model.req.PostCompanyReq;
+import com.example.demo.src.company.model.res.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;

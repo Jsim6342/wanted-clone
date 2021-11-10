@@ -1,6 +1,6 @@
 package com.example.demo.src.resume;
 
-import com.example.demo.src.company.model.GetResumeDTO;
+import com.example.demo.src.company.model.res.GetResumeDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
