@@ -168,4 +168,20 @@ public class CompanyController {
         String result = "";
         return new BaseResponse<>(result);
     }
+
+
+    /**
+     * 기업 삭제 API
+     * [DELETE] /app/companies/{companyId}
+     * @return BaseResponse<String>
+     */
+    @DeleteMapping("/{companyId}")
+    public BaseResponse<String> createOffer(@PathVariable Long companyId) {
+
+        companyService.deleteCompany(companyId);
+        String result = "";
+        return new BaseResponse<>(result);
+    }
+
+
 }

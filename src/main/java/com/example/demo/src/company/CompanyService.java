@@ -34,4 +34,8 @@ public class CompanyService {
     public void createOffer(Long companyId, Long userId) {
         companyDao.createOffer(companyId, userId);
     }
+
+    public void deleteCompany(Long companyId) {
+        companyDao.deleteCompany(companyId);
+    }
 }
