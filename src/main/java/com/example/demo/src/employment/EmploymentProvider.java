@@ -49,7 +49,9 @@ public class EmploymentProvider {
             List<GetEmploymentPageRes> getEmploymentPageRes = employmentDao.getEmploymentPage(tag, location, year);
             return getEmploymentPageRes;
         } catch (Exception exception){
-            throw new BaseException(DATABASE_ERROR);
+            System.out.println(exception);
+            throw exception;
+//            throw new BaseException(DATABASE_ERROR);
         }
     }
 }

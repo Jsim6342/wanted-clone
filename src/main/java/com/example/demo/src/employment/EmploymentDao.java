@@ -130,8 +130,8 @@ public class EmploymentDao {
                 "        from Company inner join Company_Img on Company.company_idx = Company_Img.company_idx\n" +
                 "        inner join Com_Key_Map on Company.company_idx = Com_Key_Map.company_idx\n" +
                 "        inner join Keyword on Com_Key_Map.keyword_num = Keyword.keyword_num\n" +
-                "        where keyword_name = '인원 급성장' and Company.company_location = '서울') VVS on VVS.company_idx = Employment.company_idx\n" +
-                "where Employment.career = 0";
+                "        where keyword_name = ? and Company.company_location = ?) VVS on VVS.company_idx = Employment.company_idx\n" +
+                "where Employment.career = ?";
         String getEmploymentPageParam1 = tag;
         String getEmploymentPageParam2 = location;
         Long getEmploymentPageParam3 = year;
