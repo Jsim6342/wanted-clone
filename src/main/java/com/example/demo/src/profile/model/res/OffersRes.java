@@ -11,6 +11,7 @@ public class OffersRes {
     private Long offerId;
     private Long companyId;
     private String companyName;
-    private String offerDate;
     private String offerStatus;
+    private String offerDate;
+
 }

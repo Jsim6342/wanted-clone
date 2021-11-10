@@ -24,7 +24,7 @@ public class ApplicationDTO {
         private Long applicationId;
         private Long employmentId;
         private String companyName;
-        private String applicationTitle;
+        private String employmentTitle;
         private String writingTime;
         private String applicationStatus;
     }

@@ -234,7 +234,7 @@ public class ProfileDao {
             buffer.append("WHERE m.specialized_idx = ?");
 
             String skillSql = buffer.toString();
-            Long skillParams = specialized.get(0).getSpecialized_idx();
+            Long skillParams = specialized.get(0).getSpecializedId();
             skillList = this.jdbcTemplate.query(skillSql,
                     (rs, rowNum) -> new String(
                             rs.getString("skill_name")),
@@ -296,10 +296,11 @@ public class ProfileDao {
 
         // 회사 이미지 SELECT & build
         List<ApplicationDTO.ResponseDTO> result = new ArrayList<>();
-        ApplicationDTO.ResponseDTO responseDTO = new ApplicationDTO.ResponseDTO();
 
         if(!employmentList.isEmpty()) {
             for (ApplicationDTO.Employment employment : employmentList) {
+
+                ApplicationDTO.ResponseDTO responseDTO = new ApplicationDTO.ResponseDTO();
 
                 StringBuffer buffer = new StringBuffer();
                 buffer.append("select ci.company_img_1 from Employment e ");
@@ -309,7 +310,7 @@ public class ProfileDao {
 
 
                 String imageSql = buffer.toString();
-                Long imageParams = userId;
+                Long imageParams = employment.getEmploymentId();
                 List<String> imageList = this.jdbcTemplate.query(imageSql,
                         (rs, rowNum) -> rs.getString("company_img_1"),
                         imageParams);
@@ -349,10 +350,11 @@ public class ProfileDao {
 
         // 회사 이미지 SELECT & build
         List<ApplicationDTO.ResponseDTO> result = new ArrayList<>();
-        ApplicationDTO.ResponseDTO responseDTO = new ApplicationDTO.ResponseDTO();
+
 
         if(!employmentList.isEmpty()) {
             for (ApplicationDTO.Employment employment : employmentList) {
+                ApplicationDTO.ResponseDTO responseDTO = new ApplicationDTO.ResponseDTO();
 
                 StringBuffer buffer = new StringBuffer();
                 buffer.append("select ci.company_img_1 from Employment e ");
@@ -362,7 +364,7 @@ public class ProfileDao {
 
 
                 String imageSql = buffer.toString();
-                Long imageParams = userId;
+                Long imageParams = employment.getEmploymentId();
                 List<String> imageList = this.jdbcTemplate.query(imageSql,
                         (rs, rowNum) -> rs.getString("company_img_1"),
                         imageParams);
@@ -404,9 +406,6 @@ public class ProfileDao {
                         rs.getString("resume_want_status"),
                         rs.getString("updated")),
                 userId, userId, userId);
-
-
-
 
     }
 

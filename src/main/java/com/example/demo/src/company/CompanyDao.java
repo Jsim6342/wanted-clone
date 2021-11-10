@@ -2,6 +2,7 @@ package com.example.demo.src.company;
 
 import com.example.demo.config.exception.BaseException;
 import com.example.demo.src.company.model.*;
+import com.example.demo.src.company.model.req.ApplicationStatus;
 import com.example.demo.src.company.model.req.PatchCompanyReq;
 import com.example.demo.src.company.model.req.PostCompanyReq;
 import com.example.demo.src.company.model.res.*;
@@ -228,9 +229,9 @@ public class CompanyDao {
                 .build();
     }
 
-    public void setApplicationStatus(Long applicationId, String status) {
+    public void setApplicationStatus(Long applicationId, ApplicationStatus status) {
     String sql = "update Application set application_status = ? where application_idx = ?";
-    Object[] params = new Object[]{status, applicationId};
+    Object[] params = new Object[]{status.getStatus(), applicationId};
     this.jdbcTemplate.update(sql, params);
 
     }

@@ -35,12 +35,12 @@ public class GetProfileDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class BasicResume {
-        private Long resume_idx;
+        private Long resumeId;
         private String title;
-        private String school_name;
+        private String schoolName;
         private String major;
-        private String company_name;
-        private String department_name;
+        private String companyName;
+        private String departmentName;
         private String contents;
     }
 
@@ -57,11 +57,11 @@ public class GetProfileDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Specialized {
-        private Long specialized_idx;
+        private Long specializedId;
         private String field;
-        private String job_group_1;
-        private String job_group_2;
-        private String job_group_3;
+        private String jobGroup1;
+        private String jobGroup2;
+        private String jobGroup3;
         private String career;
     }
 
