@@ -1,7 +1,7 @@
 package com.example.demo.src.company;
 
 import com.example.demo.src.company.model.*;
-import com.example.demo.utils.JwtService;
+import com.example.demo.src.company.model.res.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

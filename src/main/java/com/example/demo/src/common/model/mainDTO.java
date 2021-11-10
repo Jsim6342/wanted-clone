@@ -1,6 +1,5 @@
 package com.example.demo.src.common.model;
 
-import com.example.demo.src.company.model.GetCompanyDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

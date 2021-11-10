@@ -1,7 +1,7 @@
 package com.example.demo.src.resume;
 
 import com.example.demo.config.exception.BaseException;
-import com.example.demo.src.company.model.GetResumeDTO;
+import com.example.demo.src.company.model.res.GetResumeDTO;
 import com.example.demo.src.resume.model.PostResumeReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

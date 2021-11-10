@@ -1,9 +1,9 @@
 package com.example.demo.src.profile;
 
-import com.example.demo.src.profile.model.ApplicationDTO;
-import com.example.demo.src.profile.model.GetProfileDTO;
-import com.example.demo.src.profile.model.MyWantedDTO;
-import com.example.demo.src.profile.model.OffersRes;
+import com.example.demo.src.profile.model.res.ApplicationDTO;
+import com.example.demo.src.profile.model.res.GetProfileDTO;
+import com.example.demo.src.profile.model.res.MyWantedDTO;
+import com.example.demo.src.profile.model.res.OffersRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

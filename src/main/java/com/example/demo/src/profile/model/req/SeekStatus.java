@@ -1,4 +1,4 @@
-package com.example.demo.src.profile.model;
+package com.example.demo.src.profile.model.req;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
