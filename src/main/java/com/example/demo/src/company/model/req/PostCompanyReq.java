@@ -38,7 +38,7 @@ public class PostCompanyReq {
     @NotBlank(message = "회사/서비스 소개를 입력해주세요.")
     private String introduce;
 
-    @PastOrPresent(message = "정확한 설립일을 입력해주세요.")
+    @NotBlank(message = "정확한 설립일을 입력해주세요.")
     private String establishment;
 
     @Email(message = "정확한 이메일을 입력해주세요.")

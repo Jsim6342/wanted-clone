@@ -113,7 +113,7 @@ public class ProfileController {
 
         Long userId = (Long)request.getAttribute("userId");
 
-        List<ApplicationDTO.ResponseDTO> result = profileProvider.getApplicatios(userId);
+        List<ApplicationDTO.ResponseDTO> result = profileProvider.getApplications(userId);
 
         return new BaseResponse<>(result);
     }
