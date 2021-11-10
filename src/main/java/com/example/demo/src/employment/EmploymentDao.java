@@ -124,12 +124,14 @@ public class EmploymentDao {
     }
 
     public List<GetEmploymentPageRes> getEmploymentPage(String tag, String location, Long year){
-        String getEmploymentPageQuery = "select Company_Img.company_img_1, Employment.emp_title, Company.company_name ,Employment.company_location, Employment.rec_reward + Employment.vol_reward as '채용보상금'\n" +
-                "from Employment inner join Company on Employment.company_idx = Company.company_idx\n" +
-                "inner join Company_Img on Company.company_idx = Company_Img.company_idx\n" +
-                "inner join Com_Key_Map on Company.company_idx = Com_Key_Map.company_idx\n" +
-                "inner join Keyword on Com_Key_Map.keyword_num = Keyword.keyword_num\n" +
-                "where Keyword.keyword_name = ? and Employment.company_location = ? and Employment.career = ?";
+        String getEmploymentPageQuery = "select VVS.company_img_1, emp_title, VVS.company_name, VVS.company_location, Employment.rec_reward + Employment.vol_reward as '채용보상금'\n" +
+                "from Employment\n" +
+                "inner join(select Company.company_idx, Company_Img.company_img_1, Company.company_location,Company.company_name\n" +
+                "        from Company inner join Company_Img on Company.company_idx = Company_Img.company_idx\n" +
+                "        inner join Com_Key_Map on Company.company_idx = Com_Key_Map.company_idx\n" +
+                "        inner join Keyword on Com_Key_Map.keyword_num = Keyword.keyword_num\n" +
+                "        where keyword_name = '인원 급성장' and Company.company_location = '서울') VVS on VVS.company_idx = Employment.company_idx\n" +
+                "where Employment.career = 0";
         String getEmploymentPageParam1 = tag;
         String getEmploymentPageParam2 = location;
         Long getEmploymentPageParam3 = year;
