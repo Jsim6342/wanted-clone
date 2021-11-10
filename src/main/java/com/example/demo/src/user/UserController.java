@@ -1,5 +1,6 @@
 package com.example.demo.src.user;
 
+import com.example.demo.config.annotation.UnAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.example.demo.config.exception.BaseException;
@@ -35,6 +36,7 @@ public class UserController {
      * 회원가입 API
      * [POST]
      */
+    @UnAuth
     @ResponseBody
     @PostMapping("")
     public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) {
@@ -62,6 +64,7 @@ public class UserController {
      * 로그인 API
      * [POST]
      */
+    @UnAuth
     @ResponseBody
     @PostMapping("/login")
     public BaseResponse<PostLoginRes> logIn(@RequestBody PostLoginReq postLoginReq){

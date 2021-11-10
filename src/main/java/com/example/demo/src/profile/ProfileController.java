@@ -11,6 +11,8 @@ import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static com.example.demo.config.response.BaseResponseStatus.JWT_ERROR;
@@ -30,14 +32,9 @@ public class ProfileController {
      * @return BaseResponse<MyWantedDTO.ResponseDTO>
      */
     @GetMapping("/my-wanted")
-    public BaseResponse<MyWantedDTO.ResponseDTO> getMyWanted() {
+    public BaseResponse<MyWantedDTO.ResponseDTO> getMyWanted(HttpServletRequest request) {
 
-        Long userId = 0L;
-        try{
-            userId = jwtService.getUserIdx();
-        }catch (BaseException e) {
-            new BaseException(JWT_ERROR);
-        }
+        Long userId = (Long)request.getAttribute("userId");
 
         MyWantedDTO.ResponseDTO result = profileProvider.getMyWanted(userId);
         return new BaseResponse<>(result);
@@ -49,14 +46,9 @@ public class ProfileController {
      * @return BaseResponse<GetProfileDTO.ResponseDTO>
      */
     @GetMapping("/profile")
-    public BaseResponse<GetProfileDTO.ResponseDTO> getProfile() {
+    public BaseResponse<GetProfileDTO.ResponseDTO> getProfile(HttpServletRequest request) {
 
-        Long userId = 0L;
-        try{
-            userId = jwtService.getUserIdx();
-        }catch (BaseException e) {
-            new BaseException(JWT_ERROR);
-        }
+        Long userId = (Long)request.getAttribute("userId");
 
         GetProfileDTO.ResponseDTO result = profileProvider.getProfile(userId);
         return new BaseResponse<>(result);
@@ -68,14 +60,10 @@ public class ProfileController {
      * @return BaseResponse<String>
      */
     @PatchMapping("/profile/seek-status")
-    public BaseResponse<String> modifySeekStatus(@RequestBody SeekStatus seekStatus) {
+    public BaseResponse<String> modifySeekStatus(@RequestBody SeekStatus seekStatus,
+                                                 HttpServletRequest request) {
 
-        Long userId = 0L;
-        try{
-            userId = jwtService.getUserIdx();
-        }catch (BaseException e) {
-            new BaseException(JWT_ERROR);
-        }
+        Long userId = (Long)request.getAttribute("userId");
 
         profileService.modifySeekStatus(userId, seekStatus);
 
@@ -89,14 +77,10 @@ public class ProfileController {
      * @return BaseResponse<String>
      */
     @PatchMapping("/profile/{resumeId}")
-    public BaseResponse<String> modifyBasicResume(@PathVariable Long resumeId) {
+    public BaseResponse<String> modifyBasicResume(@PathVariable Long resumeId,
+                                                  HttpServletRequest request) {
 
-        Long userId = 0L;
-        try{
-            userId = jwtService.getUserIdx();
-        }catch (BaseException e) {
-            new BaseException(JWT_ERROR);
-        }
+        Long userId = (Long)request.getAttribute("userId");
 
         profileService.modifyBasicResume(userId, resumeId);
 
@@ -110,14 +94,9 @@ public class ProfileController {
      * @return BaseResponse<List<ApplicationDTO.ResponseDTO>>
      */
     @GetMapping("/profile/applications/write")
-    public BaseResponse<List<ApplicationDTO.ResponseDTO>> getApplicationWriting() {
+    public BaseResponse<List<ApplicationDTO.ResponseDTO>> getApplicationWriting(HttpServletRequest request) {
 
-        Long userId = 0L;
-        try{
-            userId = jwtService.getUserIdx();
-        }catch (BaseException e) {
-            new BaseException(JWT_ERROR);
-        }
+        Long userId = (Long)request.getAttribute("userId");
 
         List<ApplicationDTO.ResponseDTO> result = profileProvider.getApplicationWriting(userId);
 
@@ -130,14 +109,9 @@ public class ProfileController {
      * @return BaseResponse<List<ApplicationDTO.ResponseDTO>>
      */
     @GetMapping("/profile/applications")
-    public BaseResponse<List<ApplicationDTO.ResponseDTO>> getApplications() {
+    public BaseResponse<List<ApplicationDTO.ResponseDTO>> getApplications(HttpServletRequest request) {
 
-        Long userId = 0L;
-        try{
-            userId = jwtService.getUserIdx();
-        }catch (BaseException e) {
-            new BaseException(JWT_ERROR);
-        }
+        Long userId = (Long)request.getAttribute("userId");
 
         List<ApplicationDTO.ResponseDTO> result = profileProvider.getApplicatios(userId);
 
@@ -150,14 +124,10 @@ public class ProfileController {
      * @return BaseResponse<List<OffersRes>>
      */
     @GetMapping("/profile/suggestions")
-    public BaseResponse<List<OffersRes>> getOffers(@RequestParam String type) {
+    public BaseResponse<List<OffersRes>> getOffers(@RequestParam String type,
+                                                   HttpServletRequest request) {
 
-        Long userId = 0L;
-        try{
-            userId = jwtService.getUserIdx();
-        }catch (BaseException e) {
-            new BaseException(JWT_ERROR);
-        }
+        Long userId = (Long)request.getAttribute("userId");
 
         List<OffersRes> result = profileProvider.getOffers(userId, type);
 
