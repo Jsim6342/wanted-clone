@@ -27,7 +27,7 @@ public class CompanyDao {
     }
 
 
-    public void createCompany(PostCompanyReq req) {
+    public void createCompany(Long userId, PostCompanyReq req) {
         StringBuffer br = new StringBuffer();
         br.append("insert into Company ");
         br.append("(");
@@ -39,7 +39,7 @@ public class CompanyDao {
         String sql = br.toString();
 
         Object[] params = new Object[]{
-                1L, req.getCompanyName(), req.getCompanyNation(), req.getCompanyLocation(), req.getCompanyAddress(),
+                userId, req.getCompanyName(), req.getCompanyNation(), req.getCompanyLocation(), req.getCompanyAddress(),
                 req.getRegistrationNum(), req.getSales(), req.getIndustryGroup(), req.getCompanySize(),
                 req.getIntroduce(), req.getEstablishment(), req.getCompanyEmail(), req.getCompanyPhone(),
                 req.getCompanyUrl(), req.getResponse()
@@ -450,4 +450,31 @@ public class CompanyDao {
 
 
   }
+
+    public boolean getRegistrationNum(String registrationNum) {
+        String sql = "select registration_num from Company where registration_num = ?";
+        String param = registrationNum;
+        List<String> registrationNumList = this.jdbcTemplate.query(sql,
+                (rs, rowNum) -> rs.getString("registration_num"),
+                param);
+        if(registrationNumList.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean getCompanyByuserId(Long userId, Long companyId) {
+
+        String sql = "select company_idx from Company where user_idx = ?";
+        List<Long> companyIdList = this.jdbcTemplate.query(sql,
+                (rs, rowNum) -> rs.getLong("company_idx"),
+                userId);
+
+        if(companyIdList.isEmpty()) {
+            return false;
+        }
+
+        return companyIdList.stream().anyMatch(id -> companyId == id);
+
+    }
 }

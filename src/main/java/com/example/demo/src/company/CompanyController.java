@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -25,9 +26,12 @@ public class CompanyController {
      * @return BaseResponse<String>
      */
     @PostMapping("")
-    public BaseResponse<String> createCompany(@Validated @RequestBody PostCompanyReq postCompanyReq) {
+    public BaseResponse<String> createCompany(@Validated @RequestBody PostCompanyReq postCompanyReq,
+                                              HttpServletRequest request) throws Exception {
 
-        companyService.createCompany(postCompanyReq);
+        Long userId = (Long)request.getAttribute("userId");
+
+        companyService.createCompany(userId, postCompanyReq);
         String result = "";
         return new BaseResponse<>(result);
     }
@@ -51,8 +55,12 @@ public class CompanyController {
      */
     @PatchMapping("/{companyId}")
     public BaseResponse<String> modifyCompany(@Validated @RequestBody PatchCompanyReq postCompanyReq,
-                                                       @PathVariable Long companyId) {
-        companyService.modifyCompany(companyId, postCompanyReq);
+                                                       @PathVariable Long companyId
+                                                ,HttpServletRequest request) throws Exception {
+
+        Long userId = (Long)request.getAttribute("userId");
+
+        companyService.modifyCompany(userId, companyId, postCompanyReq);
         String result = "";
         return new BaseResponse<>(result);
     }
@@ -63,8 +71,12 @@ public class CompanyController {
      * @return BaseResponse<>
      */
     @GetMapping("/{companyId}/management")
-    public BaseResponse<Company> getCompanyManagement(@PathVariable Long companyId) {
-        Company result = companyProvider.getCompanyManagement(companyId);
+    public BaseResponse<Company> getCompanyManagement(@PathVariable Long companyId,
+                                                      HttpServletRequest request) throws Exception{
+
+        Long userId = (Long)request.getAttribute("userId");
+
+        Company result = companyProvider.getCompanyManagement(userId, companyId);
         return new BaseResponse<>(result);
     }
 
@@ -180,9 +192,12 @@ public class CompanyController {
      * @return BaseResponse<String>
      */
     @DeleteMapping("/{companyId}")
-    public BaseResponse<String> createOffer(@PathVariable Long companyId) {
+    public BaseResponse<String> createOffer(@PathVariable Long companyId,
+                                            HttpServletRequest request) throws Exception {
 
-        companyService.deleteCompany(companyId);
+        Long userId = (Long)request.getAttribute("userId");
+
+        companyService.deleteCompany(userId, companyId);
         String result = "";
         return new BaseResponse<>(result);
     }

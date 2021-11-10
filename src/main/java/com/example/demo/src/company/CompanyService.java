@@ -1,9 +1,13 @@
 package com.example.demo.src.company;
 
+import com.example.demo.config.exception.BaseException;
 import com.example.demo.src.company.model.req.PatchCompanyReq;
 import com.example.demo.src.company.model.req.PostCompanyReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import static com.example.demo.config.response.BaseResponseStatus.DUPLICATED_REGISTRATION_NUM;
+import static com.example.demo.config.response.BaseResponseStatus.NO_AUTHORITY_USER;
 
 @Service
 @RequiredArgsConstructor
@@ -11,11 +15,23 @@ public class CompanyService {
 
     private final CompanyDao companyDao;
 
-    public void createCompany(PostCompanyReq postCompanyReq) {
-        companyDao.createCompany(postCompanyReq);
+    public void createCompany(Long userId, PostCompanyReq postCompanyReq) throws Exception {
+
+        // 일치하는 사업자 번호 조회
+        if(!companyDao.getRegistrationNum(postCompanyReq.getRegistrationNum())) {
+            throw new BaseException(DUPLICATED_REGISTRATION_NUM);
+        }
+
+        companyDao.createCompany(userId, postCompanyReq);
     }
 
-    public void modifyCompany(Long companyId, PatchCompanyReq postCompanyReq) {
+    public void modifyCompany(Long userId, Long companyId, PatchCompanyReq postCompanyReq) throws Exception {
+
+        // 접속한 사람의 회사인지 확인
+        if(!companyDao.getCompanyByuserId(userId, companyId)) {
+            throw new BaseException(NO_AUTHORITY_USER);
+        }
+
         companyDao.modifyCompany(companyId, postCompanyReq);
     }
 
@@ -35,7 +51,13 @@ public class CompanyService {
         companyDao.createOffer(companyId, userId);
     }
 
-    public void deleteCompany(Long companyId) {
+    public void deleteCompany(Long userId, Long companyId) throws Exception{
+
+        // 접속한 사람의 회사인지 확인
+        if(!companyDao.getCompanyByuserId(userId, companyId)) {
+            throw new BaseException(NO_AUTHORITY_USER);
+        }
+
         companyDao.deleteCompany(companyId);
     }
 }

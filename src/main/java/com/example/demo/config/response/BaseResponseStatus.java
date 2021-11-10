@@ -47,6 +47,9 @@ public enum BaseResponseStatus {
     // profile
     NONEXISTENT_USER(false, 2200, "존재하지 않는 회원입니다."),
 
+    // company
+    DUPLICATED_REGISTRATION_NUM(false, 2300, "이미 등록된 사업자등록번호입니다."),
+    NO_AUTHORITY_USER(false, 2301, "해당 회사에 권한이 없는 유저입니다."),
 
 
 

@@ -1,11 +1,14 @@
 package com.example.demo.src.company;
 
+import com.example.demo.config.exception.BaseException;
 import com.example.demo.src.company.model.*;
 import com.example.demo.src.company.model.res.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.example.demo.config.response.BaseResponseStatus.NO_AUTHORITY_USER;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +20,12 @@ public class CompanyProvider {
         return companyDao.getCompany(companyId);
     }
 
-    public Company getCompanyManagement(Long companyId) {
+    public Company getCompanyManagement(Long userId, Long companyId) throws Exception{
+        // 접속한 사람의 회사인지 확인
+        if(!companyDao.getCompanyByuserId(userId, companyId)) {
+            throw new BaseException(NO_AUTHORITY_USER);
+        }
+
         return companyDao.getCompanyManagement(companyId);
     }
 
