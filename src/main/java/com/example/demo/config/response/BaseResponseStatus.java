@@ -17,11 +17,12 @@ public enum BaseResponseStatus {
      * 2000 : Request 오류
      */
     // Common
-    REQUEST_ERROR(false, 2000, "입력값을 확인해주세요."),
-    EMPTY_JWT(false, 2001, "JWT를 입력해주세요."),
-    INVALID_JWT(false, 2002, "유효하지 않은 JWT입니다."),
-    INVALID_USER_JWT(false,2003,"권한이 없는 유저의 접근입니다."),
-    JWT_ERROR(false, 2004, "JWT 관련 에러입니다."),
+    REQUEST_LOGIN(false, 2000, "로그인이 필요한 서비스 입니다."),
+    REQUEST_ERROR(false, 2001, "입력값을 확인해주세요."),
+    EMPTY_JWT(false, 2002, "로그인이 필요한 서비스 입니다."),
+    INVALID_JWT(false, 2003, "유효하지 않은 로그인 정보입니다."),
+    INVALID_USER_JWT(false,2004,"권한이 없는 유저의 접근입니다."),
+    JWT_ERROR(false, 2005, "JWT 관련 에러입니다."),
 
     // users
     USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요."),

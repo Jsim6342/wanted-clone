@@ -1,6 +1,7 @@
 package com.example.demo.src.employment;
 
 
+import com.example.demo.config.annotation.UnAuth;
 import com.example.demo.config.exception.BaseException;
 import com.example.demo.config.response.BaseResponse;
 import com.example.demo.src.employment.model.*;
@@ -86,6 +87,7 @@ public class EmploymentController {
      * 채용공고 페이지 상세 API
      * [GET]
      */
+    @UnAuth
     @ResponseBody
     @GetMapping("{employmentIdx}")
     public BaseResponse<GetEmploymentDTO> getEmploymentByEmploymentIdx(@PathVariable("employmentIdx") Long employmentIdx){
@@ -103,6 +105,7 @@ public class EmploymentController {
      * 채용공고 페이지 조회(태그,지역,경력) API
      * [GET]
      */
+    @UnAuth
     @ResponseBody
     @GetMapping("")
     public BaseResponse<List<GetEmploymentPageRes>> getEmploymentPage(
