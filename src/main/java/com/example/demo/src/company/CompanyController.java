@@ -6,6 +6,7 @@ import com.example.demo.src.company.model.req.PatchCompanyReq;
 import com.example.demo.src.company.model.req.PostCompanyReq;
 import com.example.demo.src.company.model.res.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class CompanyController {
      * @return BaseResponse<String>
      */
     @PostMapping("")
-    public BaseResponse<String> createCompany(@RequestBody PostCompanyReq postCompanyReq) {
+    public BaseResponse<String> createCompany(@Validated @RequestBody PostCompanyReq postCompanyReq) {
 
         companyService.createCompany(postCompanyReq);
         String result = "";
@@ -49,7 +50,7 @@ public class CompanyController {
      * @return BaseResponse<String>
      */
     @PatchMapping("/{companyId}")
-    public BaseResponse<String> modifyCompany(@RequestBody PatchCompanyReq postCompanyReq,
+    public BaseResponse<String> modifyCompany(@Validated @RequestBody PatchCompanyReq postCompanyReq,
                                                        @PathVariable Long companyId) {
         companyService.modifyCompany(companyId, postCompanyReq);
         String result = "";
