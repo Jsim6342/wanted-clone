@@ -1,6 +1,7 @@
 package com.example.demo.src.company;
 
 import com.example.demo.config.exception.BaseException;
+import com.example.demo.src.company.model.req.ApplicationStatus;
 import com.example.demo.src.company.model.req.PatchCompanyReq;
 import com.example.demo.src.company.model.req.PostCompanyReq;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +36,7 @@ public class CompanyService {
         companyDao.modifyCompany(companyId, postCompanyReq);
     }
 
-    public void setApplicationStatus(Long applicationId, String status) {
+    public void setApplicationStatus(Long applicationId, ApplicationStatus status) {
         companyDao.setApplicationStatus(applicationId, status);
     }
 
@@ -48,6 +49,7 @@ public class CompanyService {
     }
 
     public void createOffer(Long companyId, Long userId) {
+
         companyDao.createOffer(companyId, userId);
     }
 

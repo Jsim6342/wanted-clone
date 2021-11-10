@@ -19,7 +19,7 @@ public enum BaseResponseStatus {
     // Common
     REQUEST_LOGIN(false, 2000, "로그인이 필요한 서비스 입니다."),
     REQUEST_ERROR(false, 2001, "입력값을 확인해주세요."),
-    EMPTY_JWT(false, 2002, "로그인이 필요한 서비스 입니다."),
+    EMPTY_JWT(false, 2002, "JWT가 존재하지 않습니다."),
     INVALID_JWT(false, 2003, "유효하지 않은 로그인 정보입니다."),
     INVALID_USER_JWT(false,2004,"권한이 없는 유저의 접근입니다."),
     JWT_ERROR(false, 2005, "JWT 관련 에러입니다."),
@@ -87,7 +87,7 @@ public enum BaseResponseStatus {
 
     // profile
     FAILED_PATCH_SEEK_STATUS(false, 4200, "구직 여부 설정이 변경되지 않았습니다."),
-    FAILED_PATCH_BASIC_RESUME(false, 4200, "기본 이력서 설정이 변경되지 않았습니다."),
+    FAILED_PATCH_BASIC_RESUME(false, 4201, "기본 이력서 설정이 변경되지 않았습니다."),
 
 
     /**
