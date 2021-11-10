@@ -124,7 +124,7 @@ public class EmploymentDao {
     }
 
     public List<GetEmploymentPageRes> getEmploymentPage(String tag, String location, Long year){
-        String getEmploymentPageQuery = "select VVS.company_img_1, emp_title, VVS.company_name, VVS.company_location, Employment.rec_reward + Employment.vol_reward as '채용보상금'\n" +
+        String getEmploymentPageQuery = "select VVS.company_img_1, emp_title, VVS.company_name, VVS.company_location, Employment.rec_reward + Employment.vol_reward as 'reward'\n" +
                 "from Employment\n" +
                 "inner join(select Company.company_idx, Company_Img.company_img_1, Company.company_location,Company.company_name\n" +
                 "        from Company inner join Company_Img on Company.company_idx = Company_Img.company_idx\n" +
@@ -141,7 +141,7 @@ public class EmploymentDao {
                         rs.getString("emp_title"),
                         rs.getString("company_name"),
                         rs.getString("company_location"),
-                        rs.getLong("채용보상금")),
+                        rs.getLong("reward")),
                 getEmploymentPageParam1, getEmploymentPageParam2, getEmploymentPageParam3);
     }
 }
