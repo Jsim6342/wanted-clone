@@ -402,4 +402,49 @@ public class CompanyDao {
             new BaseException(FAILED_CREATE_COMPANY_OFFER);
         }
     }
+
+    public void deleteCompany(Long companyId) {
+
+        // 회사 키워드 매핑 삭제(delete)
+        String keyMapSql = "delete from Com_Key_Map where company_idx = ?";
+        Object[] keyMapParams = new Object[]{companyId};
+        this.jdbcTemplate.update(keyMapSql, keyMapParams);
+
+        // 회사 이미지 삭제(delete)
+        String imageSql = "delete from Company_Img where company_idx = ?";
+        Object[] imageParams = new Object[]{companyId};
+        this.jdbcTemplate.update(imageSql, imageParams);
+
+        // 이력서 원해요 삭제(delete)
+        String resumeWantSql = "delete from Resume_Want where company_idx = ?";
+        Object[] resumeWantParams = new Object[]{companyId};
+        this.jdbcTemplate.update(resumeWantSql, resumeWantParams);
+
+        // 오픈 프로필 삭제(delete)
+        String openProfileSql = "delete from Open_Profile where company_idx = ?";
+        Object[] openProfileParams = new Object[]{companyId};
+        this.jdbcTemplate.update(openProfileSql, openProfileParams);
+
+        // 입사 제안 삭제(delete)
+        String jobOfferSql = "delete from Job_Offer where company_idx = ?";
+        Object[] jobOfferParams = new Object[]{companyId};
+        this.jdbcTemplate.update(jobOfferSql, jobOfferParams);
+
+        // 회사 팔로우 삭제(delete)
+        String followSql = "delete from Company_Follow where company_idx = ?";
+        Object[] followParams = new Object[]{companyId};
+        this.jdbcTemplate.update(followSql, followParams);
+
+        // 채용공고 삭제(INACTIVE)
+        String employmentSql = "update Employment set status = 'INACTIVE' where company_idx = ?";
+        Object[] employmentParams = new Object[]{companyId};
+        this.jdbcTemplate.update(employmentSql, employmentParams);
+
+        // 회사 데이터 삭제(INACTIVE)
+        String companySql = "update Company set status = 'INACTIVE' where company_idx = ?";
+        Object[] companyParams = new Object[]{companyId};
+        this.jdbcTemplate.update(companySql, companyParams);
+
+
+  }
 }
