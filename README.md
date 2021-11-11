@@ -12,7 +12,7 @@
 
 3. PR의 작업 단위 마다 커밋을 진행한다. 커밋 메세지는 `[#<이슈 번호>] <커밋 내용>` 네이밍 형태로 한다. 이슈 번호가 9번이라면, `[#9] 유저 기능 구현 완료` 같은 식이다.
 
-4. 작업이 완료되면, **master 브랜치로 pull request**를 올린다. 이후 reviewer 기능을 통해 **동료 개발자에게 리뷰를 요청**하고, **알맞은 라벨을 부여**한다.
+4. 작업이 완료되면, **main 브랜치로 pull request**를 올린다. 이후 reviewer 기능을 통해 **동료 개발자에게 리뷰를 요청**하고, **알맞은 라벨을 부여**한다.
 
 5. 상대 개발자는 올려진 **pull request를 리뷰하고, 적절한 라벨을 부여**한다.
 
@@ -38,11 +38,4 @@
 
 ### 라벨 정의
 
-Done: 개발완료  
-Doing: 개발중  
-Fast Review: 빠른 리뷰 요청  
-In Review: 리뷰중  
-Merge Needed: 머지 가능  
-Review Needed: 리뷰 필요  
-To Do: 개발 예정  
-
+![image](https://user-images.githubusercontent.com/70616657/141353228-f37ace06-223b-41e6-91b2-b5c213e2e238.png)
