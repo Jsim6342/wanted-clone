@@ -1,6 +1,6 @@
 package com.example.demo.src.profile;
 
-import com.example.demo.com.exception.BaseException;
+import com.example.demo.config.exception.BaseException;
 import com.example.demo.src.profile.model.req.SeekStatus;
 import com.example.demo.src.profile.model.res.ApplicationDTO;
 import com.example.demo.src.profile.model.res.GetProfileDTO;
@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.demo.com.exception.BaseResponseStatus.*;
+import static com.example.demo.config.exception.BaseResponseStatus.*;
 
 @Repository
 public class ProfileDao {

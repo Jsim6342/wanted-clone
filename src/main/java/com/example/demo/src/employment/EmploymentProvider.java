@@ -1,7 +1,7 @@
 package com.example.demo.src.employment;
 
 
-import com.example.demo.com.exception.BaseException;
+import com.example.demo.config.exception.BaseException;
 import com.example.demo.src.employment.model.GetEmploymentPageRes;
 import com.example.demo.src.employment.model.GetEmploymentDTO;
 import com.example.demo.utils.JwtService;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.example.demo.com.exception.BaseResponseStatus.*;
+import static com.example.demo.config.exception.BaseResponseStatus.*;
 
 
 

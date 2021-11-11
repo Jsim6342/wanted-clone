@@ -1,9 +1,9 @@
-package com.example.demo.com.interceptor;
+package com.example.demo.config.interceptor;
 
 
-import com.example.demo.com.annotation.UnAuth;
-import com.example.demo.com.exception.BaseException;
-import com.example.demo.com.exception.BaseResponseStatus;
+import com.example.demo.config.annotation.UnAuth;
+import com.example.demo.config.exception.BaseException;
+import com.example.demo.config.exception.BaseResponseStatus;
 import com.example.demo.utils.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
