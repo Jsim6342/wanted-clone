@@ -1,17 +1,17 @@
 package com.example.demo.src.user;
 
-import com.example.demo.config.annotation.UnAuth;
+import com.example.demo.com.annotation.UnAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.example.demo.config.exception.BaseException;
-import com.example.demo.config.response.BaseResponse;
+import com.example.demo.com.exception.BaseException;
+import com.example.demo.com.response.BaseResponse;
 import com.example.demo.src.user.model.*;
 import com.example.demo.utils.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-import static com.example.demo.config.response.BaseResponseStatus.*;
+import static com.example.demo.com.exception.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController

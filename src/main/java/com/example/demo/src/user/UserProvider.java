@@ -1,8 +1,8 @@
 package com.example.demo.src.user;
 
 
-import com.example.demo.config.exception.BaseException;
-import com.example.demo.config.secret.Secret;
+import com.example.demo.com.exception.BaseException;
+import com.example.demo.com.secret.Secret;
 import com.example.demo.src.user.model.*;
 import com.example.demo.utils.AES128;
 import com.example.demo.utils.JwtService;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.example.demo.config.response.BaseResponseStatus.*;
+import static com.example.demo.com.exception.BaseResponseStatus.*;
 
 //Provider : Read의 비즈니스 로직 처리
 @Service

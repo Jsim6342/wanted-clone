@@ -1,9 +1,9 @@
 package com.example.demo.src.employment;
 
 
-import com.example.demo.config.annotation.UnAuth;
-import com.example.demo.config.exception.BaseException;
-import com.example.demo.config.response.BaseResponse;
+import com.example.demo.com.annotation.UnAuth;
+import com.example.demo.com.exception.BaseException;
+import com.example.demo.com.response.BaseResponse;
 import com.example.demo.src.employment.model.*;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.example.demo.config.response.BaseResponseStatus.*;
+import static com.example.demo.com.exception.BaseResponseStatus.*;
 
 @RestController
 @RequestMapping("/app/employments")

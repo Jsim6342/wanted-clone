@@ -1,8 +1,8 @@
 package com.example.demo.utils;
 
 
-import com.example.demo.config.exception.BaseException;
-import com.example.demo.config.secret.Secret;
+import com.example.demo.com.exception.BaseException;
+import com.example.demo.com.secret.Secret;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -14,7 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
-import static com.example.demo.config.response.BaseResponseStatus.*;
+import static com.example.demo.com.exception.BaseResponseStatus.*;
 
 @Service
 public class JwtService {

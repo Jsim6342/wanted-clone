@@ -1,7 +1,7 @@
 package com.example.demo.src.resume;
 
-import com.example.demo.config.exception.BaseException;
-import com.example.demo.config.response.BaseResponse;
+import com.example.demo.com.exception.BaseException;
+import com.example.demo.com.response.BaseResponse;
 import com.example.demo.src.company.model.res.GetResumeDTO;
 import com.example.demo.src.resume.model.PostResumeReq;
 import com.example.demo.src.resume.model.PostResumeRes;
