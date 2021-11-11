@@ -6,12 +6,14 @@ import com.example.demo.src.company.model.req.PatchCompanyReq;
 import com.example.demo.src.company.model.req.PostCompanyReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.example.demo.com.exception.BaseResponseStatus.DUPLICATED_REGISTRATION_NUM;
 import static com.example.demo.com.exception.BaseResponseStatus.NO_AUTHORITY_USER;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CompanyService {
 
     private final CompanyDao companyDao;
