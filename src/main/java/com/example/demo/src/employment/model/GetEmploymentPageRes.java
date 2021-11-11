@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetEmploymentPageRes {
+    private Long employmentIdx;
     private String companyImg;
     private String empTitle;
     private String companyName;
