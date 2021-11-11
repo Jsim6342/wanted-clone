@@ -1,6 +1,6 @@
 package com.example.demo.src.profile;
 
-import com.example.demo.config.response.BaseResponse;
+import com.example.demo.com.response.BaseResponse;
 import com.example.demo.src.profile.model.req.SeekStatus;
 import com.example.demo.src.profile.model.res.ApplicationDTO;
 import com.example.demo.src.profile.model.res.GetProfileDTO;
