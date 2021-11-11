@@ -1,6 +1,6 @@
 package com.example.demo.src.resume;
 
-import com.example.demo.config.exception.BaseException;
+import com.example.demo.com.exception.BaseException;
 import com.example.demo.src.company.model.res.GetResumeDTO;
 import com.example.demo.src.resume.model.PostResumeReq;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.demo.config.exception.BaseResponseStatus.NONEXISTENT_RESUME;
+import static com.example.demo.com.exception.BaseResponseStatus.NONEXISTENT_RESUME;
 
 @Slf4j
 @Repository
