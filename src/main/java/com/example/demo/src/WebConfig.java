@@ -1,6 +1,6 @@
-package com.example.demo.com.config;
+package com.example.demo.src;
 
-import com.example.demo.com.interceptor.LoginCheckInterceptor;
+import com.example.demo.config.interceptor.LoginCheckInterceptor;
 import com.example.demo.utils.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
