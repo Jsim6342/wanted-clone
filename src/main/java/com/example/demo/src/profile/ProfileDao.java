@@ -113,17 +113,16 @@ public class ProfileDao {
         List<MyWantedDTO.RecommendEmployment> recommendEmploymentList = new ArrayList<>();
 
         if(!fieldList.isEmpty()) {
-            String sql = "select employment_idx, emp_title, company_name, company_location, (rec_reward + vol_reward) as reward" +
-                    "from Employment where job_group = ?";
+            String sql = "select employment_idx, emp_title, company_name, company_location, (rec_reward + vol_reward) as reward from Employment where job_group = ? order by employment_idx desc limit 4";
             String param = fieldList.get(0);
             recommendEmploymentList = this.jdbcTemplate.query(sql,
                     (rs, rowNum) -> new MyWantedDTO.RecommendEmployment(
                             rs.getLong("employment_idx"),
                             rs.getString("emp_title"),
                             rs.getString("company_name"),
-                            rs.getString("user_phone_number"),
+                            rs.getString("company_location"),
                             rs.getLong("reward")),
-                    userId);
+                    param);
         }
 
 
