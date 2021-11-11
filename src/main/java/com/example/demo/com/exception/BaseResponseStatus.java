@@ -1,4 +1,4 @@
-package com.example.demo.config.response;
+package com.example.demo.com.exception;
 
 import lombok.Getter;
 

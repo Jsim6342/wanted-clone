@@ -1,7 +1,6 @@
 package com.example.demo.src.profile;
 
-import com.example.demo.config.exception.BaseException;
-import com.example.demo.config.response.BaseResponse;
+import com.example.demo.com.response.BaseResponse;
 import com.example.demo.src.profile.model.req.SeekStatus;
 import com.example.demo.src.profile.model.res.ApplicationDTO;
 import com.example.demo.src.profile.model.res.GetProfileDTO;
@@ -11,11 +10,8 @@ import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
-import static com.example.demo.config.response.BaseResponseStatus.JWT_ERROR;
 
 @RestController
 @RequestMapping("/app/users")
