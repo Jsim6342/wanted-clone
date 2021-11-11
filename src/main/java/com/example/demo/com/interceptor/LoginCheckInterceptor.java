@@ -1,10 +1,9 @@
-package com.example.demo.config.interceptor;
+package com.example.demo.com.interceptor;
 
 
-import com.example.demo.config.annotation.UnAuth;
-import com.example.demo.config.exception.BaseException;
-import com.example.demo.config.response.BaseResponse;
-import com.example.demo.config.response.BaseResponseStatus;
+import com.example.demo.com.annotation.UnAuth;
+import com.example.demo.com.exception.BaseException;
+import com.example.demo.com.exception.BaseResponseStatus;
 import com.example.demo.utils.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor

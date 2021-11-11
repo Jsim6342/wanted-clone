@@ -2,8 +2,8 @@ package com.example.demo.src.user;
 
 
 
-import com.example.demo.config.exception.BaseException;
-import com.example.demo.config.secret.Secret;
+import com.example.demo.com.exception.BaseException;
+import com.example.demo.com.secret.Secret;
 import com.example.demo.src.user.model.*;
 import com.example.demo.utils.AES128;
 import com.example.demo.utils.JwtService;
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.example.demo.config.response.BaseResponseStatus.*;
+import static com.example.demo.com.exception.BaseResponseStatus.*;
 
 // Service Create, Update, Delete 의 로직 처리
 @Service

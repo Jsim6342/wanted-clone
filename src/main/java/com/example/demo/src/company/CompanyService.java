@@ -1,14 +1,14 @@
 package com.example.demo.src.company;
 
-import com.example.demo.config.exception.BaseException;
+import com.example.demo.com.exception.BaseException;
 import com.example.demo.src.company.model.req.ApplicationStatus;
 import com.example.demo.src.company.model.req.PatchCompanyReq;
 import com.example.demo.src.company.model.req.PostCompanyReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.example.demo.config.response.BaseResponseStatus.DUPLICATED_REGISTRATION_NUM;
-import static com.example.demo.config.response.BaseResponseStatus.NO_AUTHORITY_USER;
+import static com.example.demo.com.exception.BaseResponseStatus.DUPLICATED_REGISTRATION_NUM;
+import static com.example.demo.com.exception.BaseResponseStatus.NO_AUTHORITY_USER;
 
 @Service
 @RequiredArgsConstructor

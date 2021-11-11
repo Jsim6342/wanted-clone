@@ -1,6 +1,6 @@
 package com.example.demo.src.company;
 
-import com.example.demo.config.response.BaseResponse;
+import com.example.demo.com.response.BaseResponse;
 import com.example.demo.src.company.model.*;
 import com.example.demo.src.company.model.req.ApplicationStatus;
 import com.example.demo.src.company.model.req.PatchCompanyReq;

@@ -1,7 +1,7 @@
 package com.example.demo.src.common;
 
 
-import com.example.demo.config.response.BaseResponse;
+import com.example.demo.com.response.BaseResponse;
 import com.example.demo.src.common.model.mainDTO;
 import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;

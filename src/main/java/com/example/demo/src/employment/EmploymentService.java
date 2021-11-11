@@ -1,13 +1,13 @@
 package com.example.demo.src.employment;
 
-import com.example.demo.config.exception.BaseException;
+import com.example.demo.com.exception.BaseException;
 import com.example.demo.src.employment.model.*;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import static com.example.demo.config.response.BaseResponseStatus.*;
+import static com.example.demo.com.exception.BaseResponseStatus.*;
 
 
 @Service
