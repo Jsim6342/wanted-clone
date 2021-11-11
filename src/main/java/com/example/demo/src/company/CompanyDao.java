@@ -150,7 +150,7 @@ public class CompanyDao {
     }
 
     public List<GetApplicationsRes> getApplications(Long companyId) {
-        //회사 지원서idx SELECT
+        //회사 채용공고idx SELECT
         String employmentIdxSql = "select employment_idx from Employment where company_idx = ?";
         Long employmentIdxParams = companyId;
         List<Long> employmentIdxList = this.jdbcTemplate.query(employmentIdxSql,
@@ -161,19 +161,19 @@ public class CompanyDao {
             return new ArrayList<GetApplicationsRes>();
         }
 
-        //지원서 SELECT
+        //각 공고 지원서 SELECT
         List<GetApplicationsRes> result = new ArrayList<>();
         for (Long employmentIdx : employmentIdxList) {
-            result.add(getApplicationsRes(employmentIdx));
+            result.addAll(getApplicationsRes(employmentIdx));
         }
         return result;
 
     }
 
-    public GetApplicationsRes getApplicationsRes(Long employmentIdx) {
+    public List<GetApplicationsRes> getApplicationsRes(Long employmentIdx) {
         String applicationSql = "select application_idx, application_status, user_name, user_email, user_phone from Application where employment_idx = ?";
         Long applicaitonParams = employmentIdx;
-        return this.jdbcTemplate.queryForObject(applicationSql,
+        return this.jdbcTemplate.query(applicationSql,
                 (rs, rowNum) -> new GetApplicationsRes(
                         rs.getLong("application_idx"),
                         rs.getString("application_status"),
