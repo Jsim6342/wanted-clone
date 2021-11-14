@@ -7,11 +7,11 @@
 
 ## 💁‍♂️ Wiki
 
-- [Ground Rule](https://github.com/Jsim6342/wanted-clone/wiki/%F0%9F%93%8C-Ground-Rule)
-- [명세서](https://docs.google.com/spreadsheets/d/1ZLrF6zCwts5qt4bVxmj8SG71MKh1Lk3S/edit#gid=990061567)
-- [디렉토리 구조](https://github.com/Jsim6342/wanted-clone/wiki/%F0%9F%93%81-Directory-Structure)
-- [Issue, PR 예시](https://github.com/Jsim6342/wanted-clone/wiki/%E2%9C%A8-Issue-&-PR-Example)
-- [시연 영상](https://youtu.be/6_us3-ApNu4)
+- 📌 [Ground Rule](https://github.com/Jsim6342/wanted-clone/wiki/%F0%9F%93%8C-Ground-Rule)
+- 📰 [명세서](https://docs.google.com/spreadsheets/d/1ZLrF6zCwts5qt4bVxmj8SG71MKh1Lk3S/edit#gid=990061567)
+- 📁 [디렉토리 구조](https://github.com/Jsim6342/wanted-clone/wiki/%F0%9F%93%81-Directory-Structure)
+- ✨ [Issue, PR 예시](https://github.com/Jsim6342/wanted-clone/wiki/%E2%9C%A8-Issue-&-PR-Example)
+- 📽 [시연 영상](https://youtu.be/6_us3-ApNu4)
 
 </br>
 
