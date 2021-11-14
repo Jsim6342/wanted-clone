@@ -7,11 +7,10 @@
 
 ## 💁‍♂️ Wiki
 
-- [Ground Rule]()
-- [기획서]()
-- [명세서]()
-- [디렉토리 구조]()
-- [Issue, PR 예시]()
+- [Ground Rule](https://github.com/Jsim6342/wanted-clone/wiki/%F0%9F%93%8C-Ground-Rule)
+- [명세서](https://docs.google.com/spreadsheets/d/1ZLrF6zCwts5qt4bVxmj8SG71MKh1Lk3S/edit#gid=990061567)
+- [디렉토리 구조](https://github.com/Jsim6342/wanted-clone/wiki/%F0%9F%93%81-Directory-Structure)
+- [Issue, PR 예시](https://github.com/Jsim6342/wanted-clone/wiki/%E2%9C%A8-Issue-&-PR-Example)
 - [시연 영상](https://youtu.be/6_us3-ApNu4)
 
 </br>
@@ -50,7 +49,7 @@
 ![](https://user-images.githubusercontent.com/70616657/141680903-f4a489db-7e7b-444e-995c-5ddcbde26ac7.png)
 
    
-### Interceptor
+### 1️⃣ Interceptor
 
 ![](https://user-images.githubusercontent.com/70616657/141680914-05c681e6-346b-4dc5-b861-20b696ec2564.png)
 
@@ -64,7 +63,7 @@
   - 보내온 Request에 토큰이 있는지 확인하고, 해당 토큰의 여부에 따라 알맞은 로직을 처리해주었다.
    
 
-### Controller
+### 2️⃣ Controller
 
 ![](https://user-images.githubusercontent.com/70616657/141680924-87bed3d8-36d5-426d-b398-2121ec51f1ff.png)
 
@@ -76,7 +75,7 @@
   - Service 계층에서 넘어온 로직 처리 결과(메세지)를 미리 정의해둔 BaseResponse 객체에 담아 화면단에 응답해줍니다.
    
 
-### Service
+### 3️⃣ Service
 
 ![](https://user-images.githubusercontent.com/70616657/141680931-7c1b26b4-847f-446f-92a8-8f1767d10689.png)
 
@@ -87,7 +86,7 @@
   - 쿼리 로직 중에 에러가 발생할 경우, 롤백 처리를 하기 위한 트랜잭션 처리를 어노테이션을 활용하여 처리해주었습니다.
 
 
-### Dao
+### 4️⃣ Dao
 
 ![](https://user-images.githubusercontent.com/70616657/141680944-61a60ec1-a9d4-4c1e-8c9a-1a5d0200c543.png)
 
@@ -96,7 +95,7 @@
   - JOIN문 등 긴 쿼리문을 수행할 경우, Buffer를 활용하여 가독성과 '+' 연산을 최소화 하였습니다.
    
    
-### Etc
+### 5️⃣ Etc
    
 - **타입 검증 처리** :pushpin: [코드 확인](https://github.com/Jsim6342/wanted-clone/blob/59232b2abe9e51ff515f14a12825b699205f2bc5/src/main/java/com/example/demo/src/company/model/req/PostCompanyReq.java#L12)
    - Bean Validation을 활용하여 DTO에서 타입(형식) 검증을 수행하였다. 이를 통해 검증 로직을 분리할 수 있었다.
@@ -148,7 +147,7 @@
   - 다음과 같이 버퍼를 통해서도 해결이 가능하다.  
   
   ```java
-  String sql = sb.append("select * from goods where name = '").append(name).append("';").toString();
+  String sql = sb.append("select * from goods where name = '").append(query).append("';").toString();
   ```
   
 </div>
@@ -159,9 +158,9 @@
 <div markdown="1">
   
   - 원티드 클론코딩 중, CORS 이슈가 발생하였습니다.
-  - 이 문제는 SOP 보안 정책에 관한 것으로, 이 보안 정책에 따르면 URI Schema, Hostname, Port가 모두 같은 Origin 내에서 req와 res를 주고 받아야한다고 한다.
+  - 이 문제는 `SOP 보안 정책`에 관한 것으로, 이 보안 정책에 따르면 URI Schema, Hostname, Port가 모두 같은 Origin 내에서 req와 res를 주고 받아야한다고 한다.
   - 프론트 프로젝트 저장소와 백엔드 프로젝트 저장소가 상이하여 URL이 달라 해당 보안 정책에 어긋나서 발생하는 문제였다.
-  - 해결하기 위해서 프론트 측에서는 프록시 서버를 경유하여 해결하는 방법이 있으며, 서버 측에서는 Config 설정을 통해 해결할 수 있다.
+  - 해결하기 위해서 프론트 측에서는 `프록시 서버를 경유`하여 해결하는 방법이 있으며, 서버 측에서는 `Config 설정`을 통해 해결할 수 있다.
   - 다만, 보안적인 부분이다보니 프론트 측에서 먼저 프록시 서버를 경유하는 방법을 시도하였고, 이후에 config 파일을 설정하는 방향으로 구현하였다.
   
 </div>
@@ -172,7 +171,7 @@
 <div markdown="1">
   
   - config 파일 설정으로 해결된줄 알았던 CORS 에러가 또 발생하였다.
-  - 원인은 Interceptor의 구현과 Preflight Request에 의한 에러였다.
+  - 원인은 Interceptor의 구현과 `Preflight Request`에 의한 에러였다.
   - 브라우저는 서버로 요청을 보낼 때, Preflight Request를 우선적으로 보내 접근 권한을 확인한다.
   - Interceptor는 접근한 Preflight Request에게서 토큰을 확인하는 작업을 하게되어 해당 문제가 발생했다.
   - 요청이 Preflight Request인지 확인하는 로직을 Interceptor에 추가하여 해결하였다.
