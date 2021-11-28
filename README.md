@@ -46,12 +46,12 @@
 <div markdown="1">
 
 ### 전체 흐름
-![](https://user-images.githubusercontent.com/70616657/141680903-f4a489db-7e7b-444e-995c-5ddcbde26ac7.png)
+![](https://user-images.githubusercontent.com/70616657/143728564-a8d392e3-5837-44a3-8ab7-2e20217ac523.png)
 
    
 ### 1️⃣ Interceptor
 
-![](https://user-images.githubusercontent.com/70616657/141680914-05c681e6-346b-4dc5-b861-20b696ec2564.png)
+![](https://user-images.githubusercontent.com/70616657/143728580-a757d3d3-c6c1-4bd7-8670-68cd12e63299.png)
 
 - **Preflight Request 처리** :pushpin: [코드 확인](https://github.com/Jsim6342/wanted-clone/blob/59232b2abe9e51ff515f14a12825b699205f2bc5/src/main/java/com/example/demo/com/interceptor/LoginCheckInterceptor.java#L30)
   - 브라우저는 요청을 보내기 전 Preflight Request를 우선적으로 보내기 때문에 Interceptor에서 토큰을 검사하기 위해 Preflight Request를 가장 먼저 선별, 처리해줘야 한다.
@@ -65,7 +65,7 @@
 
 ### 2️⃣ Controller
 
-![](https://user-images.githubusercontent.com/70616657/141680924-87bed3d8-36d5-426d-b398-2121ec51f1ff.png)
+![](https://user-images.githubusercontent.com/70616657/143728597-ce2dd002-0ad9-4ab2-97f5-d0a2df9334ea.png)
 
 - **요청 처리** :pushpin: [코드 확인](https://github.com/Jsim6342/wanted-clone/blob/59232b2abe9e51ff515f14a12825b699205f2bc5/src/main/java/com/example/demo/src/company/CompanyController.java#L64)
   - Controller에서는 요청을 화면단에서 넘어온 요청을 받고, Service 계층에 로직 처리를 위임합니다.
@@ -77,7 +77,7 @@
 
 ### 3️⃣ Service
 
-![](https://user-images.githubusercontent.com/70616657/141680931-7c1b26b4-847f-446f-92a8-8f1767d10689.png)
+![](https://user-images.githubusercontent.com/70616657/143728618-d00d5234-1c48-4301-9dd6-ade6ebe6c128.png)
 
 - **검증 처리** :pushpin: [코드 확인](https://github.com/Jsim6342/wanted-clone/blob/59232b2abe9e51ff515f14a12825b699205f2bc5/src/main/java/com/example/demo/src/company/CompanyService.java#L34)
   - 이미 등록된 사업자등록번호, 접속한 회원이 소유한 회사인지 등 의미적 검증 처리를 진행하였습니다.
@@ -88,7 +88,7 @@
 
 ### 4️⃣ Dao
 
-![](https://user-images.githubusercontent.com/70616657/141680944-61a60ec1-a9d4-4c1e-8c9a-1a5d0200c543.png)
+![](https://user-images.githubusercontent.com/70616657/143728637-5d4be8db-fa6e-4a49-ba5e-8ae9bb74c4e1.png)
 
 - **쿼리 수행** :pushpin: [코드 확인](https://github.com/Jsim6342/wanted-clone/blob/59232b2abe9e51ff515f14a12825b699205f2bc5/src/main/java/com/example/demo/src/company/CompanyDao.java#L108)
   - JDBC Template를 활용하여 DB 쿼리 로직을 수행했습니다.
