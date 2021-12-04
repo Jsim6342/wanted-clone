@@ -139,7 +139,7 @@ gradle-app.setting
 logs/
 
 ### yml 설정파일 ###
-mysql.yml
+src/main/resources/mysql.yml
 
 ### class 파일 ###
 src/main/java/com/example/demo/config/secret/Secret.class
